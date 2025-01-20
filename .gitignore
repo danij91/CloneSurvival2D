@@ -1,0 +1,25 @@
+# Unity 관련
+[Ll]ibrary/
+[Tt]emp/
+[Oo]bj/
+[Bb]uild/
+[Bb]uilds/
+[Ll]ogs/
+[Mm]emoryCaptures/
+
+# OS 관련
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# Rider IDE
+.idea/
+*.iml
+
+# iOS 관련
+build/
+DerivedData/
+Pods/
+
+# Unity Collaborate
+*.collab
