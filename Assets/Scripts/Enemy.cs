@@ -2,18 +2,20 @@ using UnityEngine;
 
 public class Enemy : MonoBehaviour
 {
+    public int health;
     public float moveSpeed = 3f;
-    private Transform _player;
+
+    private Transform _playerTransform;
 
     private void Start()
     {
-        _player = GameObject.FindGameObjectWithTag("Player").transform;
+        _playerTransform = GameManager.Instance.player.transform;
     }
 
     private void Update()
     {
-        Vector2 direction = (_player.position - transform.position).normalized;
-        transform.position += (Vector3) direction * (moveSpeed * Time.deltaTime);
+        Vector2 direction = (_playerTransform.position - transform.position).normalized;
+        transform.position += (Vector3)direction * (moveSpeed * Time.deltaTime);
     }
 
     private void OnCollisionEnter2D(Collision2D collision)
@@ -22,10 +24,19 @@ public class Enemy : MonoBehaviour
         {
             // 플레이어에게 피격 피해 적용
         }
-        
-        if (collision.gameObject.CompareTag("Bullet"))
+    }
+
+    public void TakeDamage(int damage)
+    {
+        health -= damage;
+        if (health <= 0)
         {
-            // 에너미에게 피격 피해 적용
+            Die();
         }
+    }
+
+    private void Die()
+    {
+        Destroy(gameObject);
     }
 }
