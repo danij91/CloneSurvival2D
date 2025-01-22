@@ -13,6 +13,7 @@ public class PlayerController : MonoBehaviour
 
     private Rigidbody2D _rigidbody;
     private Vector2 _movement;
+    private Vector2 _direction = Vector2.left;
     private bool _isRight;
 
     private void Start()
@@ -27,16 +28,25 @@ public class PlayerController : MonoBehaviour
         transform.localScale = scale;
     }
 
+    public Vector2 GetDirection()
+    {
+        return _direction;
+    }
+
     private void FixedUpdate()
     {
-        // 입력 처리
+        // 입력
         _movement.x = Input.GetAxis("Horizontal");
         _movement.y = Input.GetAxis("Vertical");
+        if (_movement.sqrMagnitude != 0)
+        {
+            _direction = _movement.normalized;
+        }
 
-        // 이동 처리
+        // 이동
         _rigidbody.MovePosition(_rigidbody.position + _movement * moveSpeed * Time.fixedDeltaTime);
 
-        // 애니메이션 처리
+        // 애니메이션
         if (_movement.x != 0 || _movement.y != 0)
         {
             animator.SetBool("1_Move", true);

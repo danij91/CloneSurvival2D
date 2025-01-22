@@ -68,6 +68,7 @@
     <Compile Include="Assets\SPUM\Script\SPUM_HorseSpriteList.cs" />
     <Compile Include="Assets\SPUM\Script\SPUM_AnimationController.cs" />
     <Compile Include="Assets\SPUM\Sprite_Editor(Beta)\Script\SPUM_SpriteEditManager.cs" />
+    <Compile Include="Assets\Scripts\Armory\Weapons\RangedWeapon.cs" />
     <Compile Include="Assets\SPUM\Script\SPUM_EyeSet.cs" />
     <Compile Include="Assets\SPUM\Script\Plugin\Moments Recorder\Scripts\Recorder.cs" />
     <Compile Include="Assets\SPUM\Script\Plugin\Moments Recorder\Scripts\Gif\GifFrame.cs" />
@@ -82,6 +83,7 @@
     <Compile Include="Assets\SPUM\Script\Data\SPUM_Prefabs.cs" />
     <Compile Include="Assets\SPUM\Script\SPUM_PreviewItem.cs" />
     <Compile Include="Assets\SPUM\Script\SPUM_PackageElement.cs" />
+    <Compile Include="Assets\Scripts\Armory\Projectiles\Projectile.cs" />
     <Compile Include="Assets\SPUM\Script\SPUM_Button.cs" />
     <Compile Include="Assets\SPUM\Script\Plugin\Moments Recorder\Scripts\Worker.cs" />
     <Compile Include="Assets\SPUM\Script\Data\SpumTextureData.cs" />
@@ -91,6 +93,8 @@
     <Compile Include="Assets\SPUM\Script\SPUM_PackageButton.cs" />
     <Compile Include="Assets\SPUM\Script\SPUM_AnimationPreset.cs" />
     <Compile Include="Assets\SPUM\Script\SPUM_AnimationStatePanel.cs" />
+    <Compile Include="Assets\Scripts\Armory\Weapons\Weapon.cs" />
+    <Compile Include="Assets\Scripts\Armory\Weapons\Bow.cs" />
     <Compile Include="Assets\SPUM\Script\Data\SPUM_MatchingList.cs" />
     <Compile Include="Assets\SPUM\Script\Plugin\Moments Recorder\Scripts\Gif\GifEncoder.cs" />
     <Compile Include="Assets\SPUM\Script\SPUM_SpriteList.cs" />
@@ -98,6 +102,7 @@
     <Compile Include="Assets\SPUM\Script\SPUM_PreviewMatchingList.cs" />
     <Compile Include="Assets\Scripts\SpawnManager.cs" />
     <Compile Include="Assets\Scripts\GameManager.cs" />
+    <Compile Include="Assets\Scripts\Armory\Projectiles\Arrow.cs" />
     <Compile Include="Assets\Scripts\MapManager.cs" />
     <Compile Include="Assets\SPUM\Script\SPUM_AnimationControllerPanel.cs" />
     <Compile Include="Assets\Scripts\CameraController.cs" />
