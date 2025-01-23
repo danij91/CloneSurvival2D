@@ -13,4 +13,9 @@ public class RangedWeapon : Weapon
         newProjectile.SetDirection(direction);
         projectiles.Add(newProjectile);
     }
+    
+    protected virtual void Initialize()
+    {
+        base.Initialize();
+    }
 }

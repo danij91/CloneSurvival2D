@@ -5,6 +5,7 @@ public abstract class Enemy : Unit
 {
     public float moveSpeed = 3f;
     public int basicDamage = 10;
+    public int _experience = 10;
 
     private Transform _playerTransform;
 
@@ -31,6 +32,7 @@ public abstract class Enemy : Unit
 
     protected override void Die()
     {
+        ExperienceManager.Instance.TakeExperience(_experience);
         Destroy(gameObject);
     }
 
