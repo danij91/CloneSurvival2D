@@ -1,12 +1,14 @@
 using System;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 using Random = UnityEngine.Random;
 
 public class ExperienceManager : MonoBehaviour
 {
     public SelectionCard selectionCardPrefab;
     public RectTransform selectionPanel;
+    public Slider experienceBar;
 
     private int _currentExperience;
     private int _currentMaxExperience = 10;
@@ -21,12 +23,12 @@ public class ExperienceManager : MonoBehaviour
     {
         _currentExperience += experience;
 
-        if (_currentMaxExperience > _currentExperience)
+        if (_currentMaxExperience <= _currentExperience)
         {
-            return;
+            LevelUp();
         }
 
-        LevelUp();
+        experienceBar.value = (float)_currentExperience / _currentMaxExperience;
     }
 
     private void Start()

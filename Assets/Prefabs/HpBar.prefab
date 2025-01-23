@@ -135,6 +135,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   hpBarTransform: {fileID: 2834790014725010659}
+  fillColor: {r: 1, g: 0, b: 0, a: 1}
+  renderer: {fileID: 7550611895339627895}
 --- !u!1 &1653578461003819478
 GameObject:
   m_ObjectHideFlags: 0

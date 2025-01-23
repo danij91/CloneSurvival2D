@@ -1,9 +1,15 @@
 using UnityEngine;
 
-public class HpBar2D : MonoBehaviour
+public class ProgressBar2D : MonoBehaviour
 {
     public Transform hpBarTransform;
+    public Color fillColor = Color.red;
+    public SpriteRenderer renderer;
 
+    private void Start()
+    {
+        renderer.color = fillColor;
+    }
     public void UpdateHp(float currentHp, float maxHp)
     {
         float scale = currentHp / maxHp;

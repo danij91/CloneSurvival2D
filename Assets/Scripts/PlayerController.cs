@@ -23,9 +23,9 @@ public class PlayerController : MonoBehaviour
 
     private void Flip()
     {
-        Vector3 scale = transform.localScale;
+        Vector3 scale = characterTransform.localScale;
         scale.x *= -1;
-        transform.localScale = scale;
+        characterTransform.localScale = scale;
     }
 
     public Vector2 GetDirection()
