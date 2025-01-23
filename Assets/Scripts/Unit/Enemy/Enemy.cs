@@ -32,7 +32,7 @@ public abstract class Enemy : Unit
 
     protected override void Die()
     {
-        GameManager.Instance.ExperienceManager.TakeExperience(_experience);
+        ExperienceManager.Instance.TakeExperience(_experience);
         Destroy(gameObject);
     }
 
