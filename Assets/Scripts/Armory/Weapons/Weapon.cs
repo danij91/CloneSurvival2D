@@ -15,7 +15,7 @@ public abstract class Weapon : MonoBehaviour
         _cooldownTimer = attackCooldown;
     }
 
-    public abstract void Attack(Vector2 direction);
+    protected abstract void Attack(Vector2 direction);
 
     public virtual void Upgrade()
     {
@@ -27,14 +27,16 @@ public abstract class Weapon : MonoBehaviour
     {
         _cooldownTimer -= Time.deltaTime;
 
-        if (CanAttack())
+        if (!IsAttackReady())
         {
-            Attack(GameManager.Instance.player.GetDirection());
-            _cooldownTimer = attackCooldown;
+            return;
         }
+
+        Attack(GameManager.Instance.playerController.GetDirection());
+        _cooldownTimer = attackCooldown;
     }
 
-    public bool CanAttack()
+    private bool IsAttackReady()
     {
         return _cooldownTimer < 0;
     }
