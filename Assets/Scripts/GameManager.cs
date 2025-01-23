@@ -1,9 +1,13 @@
+using UnityEditor;
 using UnityEngine;
+using UnityEngine.Serialization;
+
 
 public class GameManager : MonoBehaviour
 {
+    
     public static GameManager Instance { get; set; }
-    public PlayerController player;
+    [FormerlySerializedAs("player")] public PlayerController playerController;
 
     private void Awake()
     {

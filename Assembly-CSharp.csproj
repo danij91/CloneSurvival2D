@@ -62,7 +62,7 @@
     <Compile Include="Assets\SPUM\Sample\Script\PlayerObj.cs" />
     <Compile Include="Assets\SPUM\Script\Data\SpumAnimationClip.cs" />
     <Compile Include="Assets\SPUM\SoonsoonData\SoonsoonData.cs" />
-    <Compile Include="Assets\Scripts\Enemy.cs" />
+    <Compile Include="Assets\Scripts\Unit\Enemy\Slime.cs" />
     <Compile Include="Assets\SPUM\Sprite_Editor(Beta)\Script\SpriteEyeSync.cs" />
     <Compile Include="Assets\SPUM\Sample\Script\PlayerManager.cs" />
     <Compile Include="Assets\SPUM\Script\SPUM_HorseSpriteList.cs" />
@@ -87,6 +87,7 @@
     <Compile Include="Assets\SPUM\Script\SPUM_Button.cs" />
     <Compile Include="Assets\SPUM\Script\Plugin\Moments Recorder\Scripts\Worker.cs" />
     <Compile Include="Assets\SPUM\Script\Data\SpumTextureData.cs" />
+    <Compile Include="Assets\Scripts\Unit\Unit.cs" />
     <Compile Include="Assets\SPUM\Script\Plugin\Moments Recorder\Scripts\Gif\NeuQuant.cs" />
     <Compile Include="Assets\SPUM\Script\Data\SpritePos.cs" />
     <Compile Include="Assets\SPUM\Script\SPUM_PackagePanel.cs" />
@@ -94,15 +95,18 @@
     <Compile Include="Assets\SPUM\Script\SPUM_AnimationPreset.cs" />
     <Compile Include="Assets\SPUM\Script\SPUM_AnimationStatePanel.cs" />
     <Compile Include="Assets\Scripts\Armory\Weapons\Weapon.cs" />
+    <Compile Include="Assets\Scripts\Unit\Enemy\Enemy.cs" />
     <Compile Include="Assets\Scripts\Armory\Weapons\Bow.cs" />
     <Compile Include="Assets\SPUM\Script\Data\SPUM_MatchingList.cs" />
     <Compile Include="Assets\SPUM\Script\Plugin\Moments Recorder\Scripts\Gif\GifEncoder.cs" />
     <Compile Include="Assets\SPUM\Script\SPUM_SpriteList.cs" />
+    <Compile Include="Assets\Scripts\Util\HpBar.cs" />
     <Compile Include="Assets\SPUM\Script\SPUM_ConvertView.cs" />
     <Compile Include="Assets\SPUM\Script\SPUM_PreviewMatchingList.cs" />
     <Compile Include="Assets\Scripts\SpawnManager.cs" />
     <Compile Include="Assets\Scripts\GameManager.cs" />
     <Compile Include="Assets\Scripts\Armory\Projectiles\Arrow.cs" />
+    <Compile Include="Assets\Scripts\Unit\Player.cs" />
     <Compile Include="Assets\Scripts\MapManager.cs" />
     <Compile Include="Assets\SPUM\Script\SPUM_AnimationControllerPanel.cs" />
     <Compile Include="Assets\Scripts\CameraController.cs" />
@@ -122,6 +126,7 @@
     <None Include="Assets\TextMesh Pro\Shaders\TMP_SDF.shader" />
     <None Include="Assets\TextMesh Pro\Shaders\TMP_SDF-Mobile SSD.shader" />
     <None Include="Assets\TextMesh Pro\Resources\LineBreaking Leading Characters.txt" />
+    <None Include="Assets\War\Slime Enemy - Pixel Art\README.txt" />
     <None Include="Assets\TextMesh Pro\Shaders\TMPro_Properties.cginc" />
     <None Include="Assets\SPUM\ReadMe - 1.7.7.txt" />
     <None Include="Assets\TextMesh Pro\Shaders\TMPro_Surface.cginc" />

@@ -6,7 +6,7 @@ public class RangedWeapon : Weapon
     public Projectile projectile;
     public List<Projectile> projectiles = new();
 
-    public override void Attack(Vector2 direction)
+    protected override void Attack(Vector2 direction)
     {
         Projectile newProjectile = Instantiate(projectile, transform.position, Quaternion.identity);
         newProjectile.WeaponDamage = damage;
