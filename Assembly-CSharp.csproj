@@ -81,6 +81,7 @@
     <Compile Include="Assets\SPUM\Sprite_SheetExporter(Beta)\Script\SPUM_Exporter.cs" />
     <Compile Include="Assets\SPUM\Script\SPUM_AnimationStateElement.cs" />
     <Compile Include="Assets\SPUM\Script\Data\SPUM_Prefabs.cs" />
+    <Compile Include="Assets\Scripts\ExperienceManager.cs" />
     <Compile Include="Assets\SPUM\Script\SPUM_PreviewItem.cs" />
     <Compile Include="Assets\SPUM\Script\SPUM_PackageElement.cs" />
     <Compile Include="Assets\Scripts\Armory\Projectiles\Projectile.cs" />
@@ -90,6 +91,7 @@
     <Compile Include="Assets\Scripts\Unit\Unit.cs" />
     <Compile Include="Assets\SPUM\Script\Plugin\Moments Recorder\Scripts\Gif\NeuQuant.cs" />
     <Compile Include="Assets\SPUM\Script\Data\SpritePos.cs" />
+    <Compile Include="Assets\Scripts\UI\SelectionCard.cs" />
     <Compile Include="Assets\SPUM\Script\SPUM_PackagePanel.cs" />
     <Compile Include="Assets\SPUM\Script\SPUM_PackageButton.cs" />
     <Compile Include="Assets\SPUM\Script\SPUM_AnimationPreset.cs" />

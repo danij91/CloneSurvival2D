@@ -3,7 +3,14 @@ using UnityEngine;
 
 public class Bow : RangedWeapon
 {
-    public void Start()
+    private void Start()
     {
+        Initialize();
+    }
+    protected virtual void Initialize()
+    {
+        base.Initialize();
+        upgradeOptionNames = new string[] { "damage", "cooldown" };
+        upgradeOptionSpecs = new float[] { 5,-0.9f};
     }
 }
