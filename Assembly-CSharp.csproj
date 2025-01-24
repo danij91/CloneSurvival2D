@@ -58,6 +58,8 @@
     <Compile Include="Assets\SPUM\Script\Data\PreviewMatchingElement.cs" />
     <Compile Include="Assets\SPUM\Script\SPUM_Manager.cs" />
     <Compile Include="Assets\Scripts\Managers\GameManager.cs" />
+    <Compile Include="Assets\Scripts\Util\Enums.cs" />
+    <Compile Include="Assets\Scripts\Util\ObjectPools\PoolingObject.cs" />
     <Compile Include="Assets\Scripts\ScriptableObjects\SFXClipDatabase.cs" />
     <Compile Include="Assets\Scripts\PlayerController.cs" />
     <Compile Include="Assets\SPUM\Script\SPUM_AnimationManager.cs" />
@@ -68,7 +70,6 @@
     <Compile Include="Assets\Scripts\Unit\Enemy\Slime.cs" />
     <Compile Include="Assets\SPUM\Sprite_Editor(Beta)\Script\SpriteEyeSync.cs" />
     <Compile Include="Assets\SPUM\Sample\Script\PlayerManager.cs" />
-    <Compile Include="Assets\Scripts\Util\FX.cs" />
     <Compile Include="Assets\SPUM\Script\SPUM_HorseSpriteList.cs" />
     <Compile Include="Assets\Scripts\Managers\ExperienceManager.cs" />
     <Compile Include="Assets\SPUM\Script\SPUM_AnimationController.cs" />
@@ -76,6 +77,7 @@
     <Compile Include="Assets\Scripts\Armory\Weapons\RangedWeapon.cs" />
     <Compile Include="Assets\SPUM\Script\SPUM_EyeSet.cs" />
     <Compile Include="Assets\SPUM\Script\Plugin\Moments Recorder\Scripts\Recorder.cs" />
+    <Compile Include="Assets\Scripts\Util\VfxUnit.cs" />
     <Compile Include="Assets\Scripts\Managers\UIManager.cs" />
     <Compile Include="Assets\SPUM\Script\Plugin\Moments Recorder\Scripts\Gif\GifFrame.cs" />
     <Compile Include="Assets\SPUM\Script\Plugin\Moments Recorder\Scripts\ReflectionUtils.cs" />
@@ -83,6 +85,7 @@
     <Compile Include="Assets\SPUM\Sprite_Editor(Beta)\Script\SpriteSync.cs" />
     <Compile Include="Assets\SPUM\Script\SPUM_AnimationPackagePanel.cs" />
     <Compile Include="Assets\SPUM\Script\SPUM_UIManager.cs" />
+    <Compile Include="Assets\Scripts\Util\SfxUnit.cs" />
     <Compile Include="Assets\SPUM\Script\Data\SpumPackage.cs" />
     <Compile Include="Assets\SPUM\Sprite_SheetExporter(Beta)\Script\SPUM_Exporter.cs" />
     <Compile Include="Assets\SPUM\Script\SPUM_AnimationStateElement.cs" />
@@ -92,6 +95,7 @@
     <Compile Include="Assets\SPUM\Script\SPUM_PackageElement.cs" />
     <Compile Include="Assets\Scripts\Armory\Projectiles\Projectile.cs" />
     <Compile Include="Assets\SPUM\Script\SPUM_Button.cs" />
+    <Compile Include="Assets\Scripts\Util\Singletone.cs" />
     <Compile Include="Assets\Scripts\Managers\FXManager.cs" />
     <Compile Include="Assets\SPUM\Script\Plugin\Moments Recorder\Scripts\Worker.cs" />
     <Compile Include="Assets\SPUM\Script\Data\SpumTextureData.cs" />
@@ -102,6 +106,7 @@
     <Compile Include="Assets\SPUM\Script\SPUM_PackagePanel.cs" />
     <Compile Include="Assets\SPUM\Script\SPUM_PackageButton.cs" />
     <Compile Include="Assets\SPUM\Script\SPUM_AnimationPreset.cs" />
+    <Compile Include="Assets\Scripts\Managers\PoolingManager.cs" />
     <Compile Include="Assets\SPUM\Script\SPUM_AnimationStatePanel.cs" />
     <Compile Include="Assets\Scripts\Armory\Weapons\Weapon.cs" />
     <Compile Include="Assets\Scripts\Unit\Enemy\Enemy.cs" />
@@ -111,13 +116,13 @@
     <Compile Include="Assets\SPUM\Script\SPUM_SpriteList.cs" />
     <Compile Include="Assets\Scripts\Util\HpBar.cs" />
     <Compile Include="Assets\Scripts\Managers\MapManager.cs" />
+    <Compile Include="Assets\Scripts\Managers\ResourceManager.cs" />
     <Compile Include="Assets\SPUM\Script\SPUM_ConvertView.cs" />
     <Compile Include="Assets\Scripts\UI\Togglizer.cs" />
     <Compile Include="Assets\Layer Lab\Scripts\PanelView.cs" />
     <Compile Include="Assets\SPUM\Script\SPUM_PreviewMatchingList.cs" />
     <Compile Include="Assets\Scripts\Armory\Projectiles\Arrow.cs" />
     <Compile Include="Assets\Scripts\Unit\Player.cs" />
-    <Compile Include="Assets\Scripts\Managers\Singletone.cs" />
     <Compile Include="Assets\SPUM\Script\SPUM_AnimationControllerPanel.cs" />
     <Compile Include="Assets\Scripts\CameraController.cs" />
     <None Include="Assets\Layer Lab\GUI Pro-SimpleCasual\ResourcesData\Fonts\MuseoModerno - OFL.txt" />

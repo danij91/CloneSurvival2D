@@ -6,24 +6,24 @@ using UnityEngine.Serialization;
 public class SFXClipDatabase : ScriptableObject
 {
     [Serializable]
-    public class SfxAudioClip
+    public class FixedSfxAudioClip
     {
-        public FXManager.SFX_TYPE key;
+        public Enums.SFX_TYPE key;
         public AudioClip clip;
     }
 
-    public SfxAudioClip[] vfxClips;
+    public FixedSfxAudioClip[] vfxClips;
 
     [Serializable]
     public class BgmAudioClip
     {
-        public FXManager.BGM_TYPE key;
+        public Enums.BGM_TYPE key;
         public AudioClip clip;
     }
     
     public BgmAudioClip[] bgmClips;
     
-    public AudioClip GetSfxClip(FXManager.SFX_TYPE sfx)
+    public AudioClip GetSfxClip(Enums.SFX_TYPE sfx)
     {
         foreach (var sfxAudioClip in vfxClips)
         {
@@ -36,7 +36,7 @@ public class SFXClipDatabase : ScriptableObject
         return null;
     }
     
-    public AudioClip GetBgmClip(FXManager.BGM_TYPE bgm)
+    public AudioClip GetBgmClip(Enums.BGM_TYPE bgm)
     {
         foreach (var bgmAudioClip in bgmClips)
         {

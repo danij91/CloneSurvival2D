@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 2252267119685296388}
   - component: {fileID: 9063752262343330727}
   m_Layer: 0
-  m_Name: FX001_01
+  m_Name: Hit
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

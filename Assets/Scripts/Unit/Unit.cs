@@ -43,13 +43,11 @@ public abstract class Unit : MonoBehaviour
         {
             for (int i = 0; i < BLINK_COUNT; i++)
             {
-                // 깜빡임 시작 (모델 비활성화)
                 characterModel.SetActive(false);
-                yield return new WaitForSeconds(BLINK_INTERVAL); // 대기
-
-                // 깜빡임 해제 (모델 활성화)
+                yield return new WaitForSeconds(BLINK_INTERVAL);
+                
                 characterModel.SetActive(true);
-                yield return new WaitForSeconds(BLINK_INTERVAL); // 대기
+                yield return new WaitForSeconds(BLINK_INTERVAL);
             }
         }
 

@@ -7,7 +7,7 @@ public class Player : Unit
 {
     public Weapon defaultWeaponPrefab;
     private PlayerController _playerController;
-    
+
     public List<Weapon> Weapons { get; set; }
 
     private void Start()
@@ -25,7 +25,7 @@ public class Player : Unit
         base.Initialize();
         Weapons = new();
         Weapon defaultWeapon = Instantiate(defaultWeaponPrefab, transform);
-        
+
         Weapons.Add(defaultWeapon);
         _playerController = GameManager.Instance.playerController;
     }

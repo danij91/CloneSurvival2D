@@ -5,66 +5,61 @@ using UnityEngine.Serialization;
 
 public class FXManager : Singleton<FXManager>
 {
-    public enum SFX_TYPE
-    {
-        HIT,
-        SHOOT,
-        LEVEL_UP,
-    }
-    
-    public enum BGM_TYPE
-    {
-        PLAY,
-    }
-
-    public GameObject fxPrefab;
     public SFXClipDatabase sfxDatabase;
 
     [Range(0f, 1f)] public float sfxVolume, bgmVolume;
 
     public AudioSource bgmAudioSource;
 
-    private Dictionary<SFX_TYPE, AudioSource> _sfxAudioSources = new();
+    private readonly List<SfxUnit> sfxUnits = new List<SfxUnit>();
 
     private void Start()
     {
         bgmAudioSource.volume = bgmVolume;
-        
-        foreach (var item in sfxDatabase.vfxClips)
-        {
-            var audioSource = gameObject.AddComponent<AudioSource>();
-            audioSource.clip = item.clip;
-            audioSource.playOnAwake = false;
-            audioSource.volume = sfxVolume;
-            audioSource.enabled = false;
-            _sfxAudioSources.Add(item.key, audioSource);
-        }
     }
 
     public void PlayVfx(Vector3 pos)
     {
-        Instantiate(fxPrefab, pos, Quaternion.identity);
+        PoolingManager.Instance.Create<VfxUnit>(POOL_TYPE.VFX, pos, "Hit");
     }
 
-    public void PlaySfx(SFX_TYPE type)
+    public void PlaySfx(Enums.SFX_TYPE type)
     {
-        AudioSource audioSource = _sfxAudioSources[type];
-        audioSource.enabled = true;
+        var unit = PoolingManager.Instance.Create<SfxUnit>(POOL_TYPE.SFX, "SfxUnit");
 
-        audioSource.Play();
+        unit.Play(sfxDatabase.GetSfxClip(type));
     }
-    
-    public void PlayBgm(BGM_TYPE type)
+
+    public void PlayBgm(Enums.BGM_TYPE type)
     {
         bgmAudioSource.clip = sfxDatabase.GetBgmClip(type);
         bgmAudioSource.Play();
     }
 
-    public void SetVolume(float volume)
+    public void RegisterSource(SfxUnit unit)
     {
-        foreach (var item in _sfxAudioSources)
+        if (!sfxUnits.Contains(unit))
         {
-            item.Value.volume = volume;
+            sfxUnits.Add(unit);
+            unit.UpdateVolume(sfxVolume);
+        }
+    }
+
+    public void UnregisterSource(SfxUnit unit)
+    {
+        if (sfxUnits.Contains(unit))
+        {
+            sfxUnits.Remove(unit);
+        }
+    }
+
+    public void SetSfxVolume(float volume)
+    {
+        sfxVolume = volume;
+        foreach (var unit in sfxUnits)
+        {
+            if (unit != null)
+                unit.UpdateVolume(sfxVolume);
         }
     }
 }

@@ -65,7 +65,7 @@ public class ExperienceManager : Singleton<ExperienceManager>
 
     private void LevelUp()
     {
-        FXManager.Instance.PlaySfx(FXManager.SFX_TYPE.LEVEL_UP);
+        FXManager.Instance.PlaySfx(Enums.SFX_TYPE.LEVEL_UP);
         GameManager.Instance.PauseGame();
         _levelUpCount++;
         _currentExperience -= _currentMaxExperience;

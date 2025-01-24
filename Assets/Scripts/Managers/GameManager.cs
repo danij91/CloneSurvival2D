@@ -2,15 +2,13 @@ using UnityEditor;
 using UnityEngine;
 using UnityEngine.Serialization;
 
-
 public class GameManager : Singleton<GameManager>
 {
-    
     public static GameManager Instance { get; set; }
     public PlayerController playerController;
-    
+
     private bool isPaused = false;
-    
+
     private void Awake()
     {
         if (Instance == null)
@@ -26,9 +24,9 @@ public class GameManager : Singleton<GameManager>
 
     private void Start()
     {
-        FXManager.Instance.PlayBgm(FXManager.BGM_TYPE.PLAY);
+        FXManager.Instance.PlayBgm(Enums.BGM_TYPE.PLAY);
     }
-    
+
     public void TogglePause()
     {
         if (isPaused)

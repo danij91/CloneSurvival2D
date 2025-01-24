@@ -48,7 +48,7 @@ public abstract class Enemy : Unit
         _playerTransform = GameManager.Instance.playerController.transform;
         OnPlayDamageEffect = Stop;
         OnCompleteDamageEffect = Move;
-        OnDamaged = ()=> { FXManager.Instance.PlaySfx(FXManager.SFX_TYPE.HIT); };
+        OnDamaged = ()=> { FXManager.Instance.PlaySfx(Enums.SFX_TYPE.HIT); };
     }
 
     protected virtual int CalculateDamage()
