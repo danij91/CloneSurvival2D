@@ -28,16 +28,15 @@ public class Projectile : MonoBehaviour
 
     private void Update()
     {
-        // 투사체 이동
         transform.Translate(_direction * speed * Time.deltaTime, Space.World);
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        // 적과 충돌 시 데미지 처리
         if (collision.CompareTag("Enemy"))
         {
             collision.GetComponent<Enemy>().TakeDamage(damage + WeaponDamage);
+            FXManager.Instance.PlayVfx(transform.position);
             Destroy(gameObject);
         }
     }

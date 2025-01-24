@@ -20,16 +20,13 @@ public class Singleton<T> : MonoBehaviour where T : MonoBehaviour
             {
                 if (_instance == null)
                 {
-                    // 기존에 존재하는 인스턴스를 찾음
                     _instance = FindObjectOfType<T>();
 
-                    // 씬에 없으면 생성
                     if (_instance == null)
                     {
                         GameObject singletonObject = new GameObject(typeof(T).Name);
                         _instance = singletonObject.AddComponent<T>();
 
-                        // 씬에서 제거되지 않도록 유지
                         DontDestroyOnLoad(singletonObject);
                     }
                 }

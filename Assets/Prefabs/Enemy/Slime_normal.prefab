@@ -123,8 +123,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   hpBar: {fileID: 5366834029574145821}
   maxHealth: 30
+  characterModel: {fileID: 7441472694797506875}
   moveSpeed: 3
   basicDamage: 10
+  _experience: 10
 --- !u!1001 &629387579816485199
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -182,6 +184,11 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 27bf31f6833d5b742a6b7841e983dd6b, type: 3}
+--- !u!1 &7441472694797506875 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 8068589428734277748, guid: 27bf31f6833d5b742a6b7841e983dd6b, type: 3}
+  m_PrefabInstance: {fileID: 629387579816485199}
+  m_PrefabAsset: {fileID: 0}
 --- !u!4 &7441472694797506878 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 8068589428734277745, guid: 27bf31f6833d5b742a6b7841e983dd6b, type: 3}

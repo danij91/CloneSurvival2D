@@ -8,9 +8,15 @@ public abstract class Enemy : Unit
     public int _experience = 10;
 
     private Transform _playerTransform;
+    private bool _isStop;
 
     protected virtual void Update()
     {
+        if (_isStop)
+        {
+            return;
+        }
+
         Vector2 direction = (_playerTransform.position - transform.position).normalized;
         transform.position += (Vector3)direction * (moveSpeed * Time.deltaTime);
     }
@@ -40,10 +46,23 @@ public abstract class Enemy : Unit
     {
         base.Initialize();
         _playerTransform = GameManager.Instance.playerController.transform;
+        OnPlayDamageEffect = Stop;
+        OnCompleteDamageEffect = Move;
+        OnDamaged = ()=> { FXManager.Instance.PlaySfx(Enums.SFX_TYPE.HIT); };
     }
 
     protected virtual int CalculateDamage()
     {
         return basicDamage;
+    }
+
+    private void Stop()
+    {
+        _isStop = true;
+    }
+
+    private void Move()
+    {
+        _isStop = false;
     }
 }
