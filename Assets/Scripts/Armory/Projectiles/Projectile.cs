@@ -1,5 +1,4 @@
-﻿using Managers;
-using UnityEngine;
+﻿using UnityEngine;
 
 public class Projectile : MonoBehaviour
 {
@@ -37,7 +36,7 @@ public class Projectile : MonoBehaviour
         if (collision.CompareTag("Enemy"))
         {
             collision.GetComponent<Enemy>().TakeDamage(damage + WeaponDamage);
-            FXManager.Instance.PlayFX(transform.position);
+            FXManager.Instance.PlayVfx(transform.position);
             Destroy(gameObject);
         }
     }

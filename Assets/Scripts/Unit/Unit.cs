@@ -12,11 +12,15 @@ public abstract class Unit : MonoBehaviour
 
     private const int BLINK_COUNT = 2;
     private const float BLINK_INTERVAL = 0.2f;
+    
+    protected Action OnDamaged;
+    
     protected Action OnPlayDamageEffect;
     protected Action OnCompleteDamageEffect;
 
     public virtual void TakeDamage(int damage)
     {
+        OnDamaged?.Invoke();
         _currentHealth = Math.Max(_currentHealth - damage, 0);
 
         hpBar.UpdateHp(_currentHealth, maxHealth);

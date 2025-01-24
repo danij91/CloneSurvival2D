@@ -23,6 +23,11 @@ public class GameManager : Singleton<GameManager>
             Destroy(gameObject);
         }
     }
+
+    private void Start()
+    {
+        FXManager.Instance.PlayBgm(FXManager.BGM_TYPE.PLAY);
+    }
     
     public void TogglePause()
     {

@@ -1,23 +1,70 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Serialization;
 
-namespace Managers
+public class FXManager : Singleton<FXManager>
 {
-    public class FXManager : Singleton<FXManager>
+    public enum SFX_TYPE
     {
-        // public Dictionary<FXType, GameObject> fxPrefabs = new();
-        public GameObject fxPrefab;
+        HIT,
+        SHOOT,
+        LEVEL_UP,
+    }
+    
+    public enum BGM_TYPE
+    {
+        PLAY,
+    }
 
-        // public enum FXType
-        // {
-        //     NONE,
-        //     PHYSICAL,
-        //     MAGICAL,
-        // }
+    public GameObject fxPrefab;
+    public SFXClipDatabase sfxDatabase;
 
-        public void PlayFX(Vector3 pos)
+    [Range(0f, 1f)] public float sfxVolume, bgmVolume;
+
+    public AudioSource bgmAudioSource;
+
+    private Dictionary<SFX_TYPE, AudioSource> _sfxAudioSources = new();
+
+    private void Start()
+    {
+        bgmAudioSource.volume = bgmVolume;
+        
+        foreach (var item in sfxDatabase.vfxClips)
         {
-            Instantiate(fxPrefab, pos, Quaternion.identity);
+            var audioSource = gameObject.AddComponent<AudioSource>();
+            audioSource.clip = item.clip;
+            audioSource.playOnAwake = false;
+            audioSource.volume = sfxVolume;
+            audioSource.enabled = false;
+            _sfxAudioSources.Add(item.key, audioSource);
+        }
+    }
+
+    public void PlayVfx(Vector3 pos)
+    {
+        Instantiate(fxPrefab, pos, Quaternion.identity);
+    }
+
+    public void PlaySfx(SFX_TYPE type)
+    {
+        AudioSource audioSource = _sfxAudioSources[type];
+        audioSource.enabled = true;
+
+        audioSource.Play();
+    }
+    
+    public void PlayBgm(BGM_TYPE type)
+    {
+        bgmAudioSource.clip = sfxDatabase.GetBgmClip(type);
+        bgmAudioSource.Play();
+    }
+
+    public void SetVolume(float volume)
+    {
+        foreach (var item in _sfxAudioSources)
+        {
+            item.Value.volume = volume;
         }
     }
 }
