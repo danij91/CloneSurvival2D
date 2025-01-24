@@ -1735,7 +1735,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6f89bb2e173249418478d0e804dfe25e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  fxPrefab: {fileID: 862144527313399388, guid: d15e73c9eb198484282ff2c589d3f0c2, type: 3}
   sfxDatabase: {fileID: 11400000, guid: 4405d5324f2225145ad94258cdf95bfd, type: 2}
   sfxVolume: 0.1
   bgmVolume: 0.133
@@ -2734,63 +2733,6 @@ Animator:
   m_CorrespondingSourceObject: {fileID: 7883690923696428993, guid: 63c2e02cd21d91248a799e5cd92eea6c, type: 3}
   m_PrefabInstance: {fileID: 9171841673533795066}
   m_PrefabAsset: {fileID: 0}
---- !u!1001 &1106696815192423507
-PrefabInstance:
-  m_ObjectHideFlags: 0
-  serializedVersion: 2
-  m_Modification:
-    serializedVersion: 3
-    m_TransformParent: {fileID: 0}
-    m_Modifications:
-    - target: {fileID: 4012358760211647114, guid: bae1340097cefa341b04f87489cb0b06, type: 3}
-      propertyPath: m_LocalPosition.x
-      value: 2.525711
-      objectReference: {fileID: 0}
-    - target: {fileID: 4012358760211647114, guid: bae1340097cefa341b04f87489cb0b06, type: 3}
-      propertyPath: m_LocalPosition.y
-      value: 5.9490814
-      objectReference: {fileID: 0}
-    - target: {fileID: 4012358760211647114, guid: bae1340097cefa341b04f87489cb0b06, type: 3}
-      propertyPath: m_LocalPosition.z
-      value: -0.1635845
-      objectReference: {fileID: 0}
-    - target: {fileID: 4012358760211647114, guid: bae1340097cefa341b04f87489cb0b06, type: 3}
-      propertyPath: m_LocalRotation.w
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 4012358760211647114, guid: bae1340097cefa341b04f87489cb0b06, type: 3}
-      propertyPath: m_LocalRotation.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4012358760211647114, guid: bae1340097cefa341b04f87489cb0b06, type: 3}
-      propertyPath: m_LocalRotation.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4012358760211647114, guid: bae1340097cefa341b04f87489cb0b06, type: 3}
-      propertyPath: m_LocalRotation.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4012358760211647114, guid: bae1340097cefa341b04f87489cb0b06, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4012358760211647114, guid: bae1340097cefa341b04f87489cb0b06, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4012358760211647114, guid: bae1340097cefa341b04f87489cb0b06, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 6737979959514721767, guid: bae1340097cefa341b04f87489cb0b06, type: 3}
-      propertyPath: m_Name
-      value: SfxUnit
-      objectReference: {fileID: 0}
-    m_RemovedComponents: []
-    m_RemovedGameObjects: []
-    m_AddedGameObjects: []
-    m_AddedComponents: []
-  m_SourcePrefab: {fileID: 100100000, guid: bae1340097cefa341b04f87489cb0b06, type: 3}
 --- !u!224 &6143945362625329225 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 576333017983565100, guid: 63c2e02cd21d91248a799e5cd92eea6c, type: 3}
@@ -3019,4 +2961,3 @@ SceneRoots:
   - {fileID: 292863374}
   - {fileID: 237048743}
   - {fileID: 1325411964}
-  - {fileID: 1106696815192423507}
