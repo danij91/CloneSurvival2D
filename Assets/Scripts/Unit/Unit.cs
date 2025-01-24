@@ -1,23 +1,55 @@
 ﻿using System;
+using System.Collections;
 using UnityEngine;
 using UnityEngine.Serialization;
 
 public abstract class Unit : MonoBehaviour
 {
-    [FormerlySerializedAs("hpBar")] public ProgressBar2D progressBar;
+    public ProgressBar2D hpBar;
     private int _currentHealth;
     public int maxHealth;
+    public GameObject characterModel;
 
-    public void TakeDamage(int damage)
+    private const int BLINK_COUNT = 2;
+    private const float BLINK_INTERVAL = 0.2f;
+    protected Action OnPlayDamageEffect;
+    protected Action OnCompleteDamageEffect;
+
+    public virtual void TakeDamage(int damage)
     {
-        _currentHealth -= damage;
-        if (_currentHealth <= 0)
+        _currentHealth = Math.Max(_currentHealth - damage, 0);
+
+        hpBar.UpdateHp(_currentHealth, maxHealth);
+
+        if (_currentHealth == 0)
         {
             Die();
-            _currentHealth = 0;
+        }
+        else
+        {
+            StartCoroutine(DamageEffect());
+        }
+    }
+
+    protected IEnumerator DamageEffect()
+    {
+        OnPlayDamageEffect?.Invoke();
+
+        if (characterModel != null)
+        {
+            for (int i = 0; i < BLINK_COUNT; i++)
+            {
+                // 깜빡임 시작 (모델 비활성화)
+                characterModel.SetActive(false);
+                yield return new WaitForSeconds(BLINK_INTERVAL); // 대기
+
+                // 깜빡임 해제 (모델 활성화)
+                characterModel.SetActive(true);
+                yield return new WaitForSeconds(BLINK_INTERVAL); // 대기
+            }
         }
 
-        progressBar.UpdateHp(_currentHealth, maxHealth);
+        OnCompleteDamageEffect?.Invoke();
     }
 
     protected abstract void Die();

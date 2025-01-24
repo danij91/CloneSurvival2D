@@ -8,6 +8,7 @@ public abstract class Weapon : MonoBehaviour
     public float attackCooldown;
     public Sprite weaponIcon;
     
+    
     protected string[] upgradeOptionNames;
     protected float[] upgradeOptionSpecs;
 

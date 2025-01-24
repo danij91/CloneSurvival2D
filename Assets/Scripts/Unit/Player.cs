@@ -7,6 +7,7 @@ public class Player : Unit
 {
     public Weapon defaultWeaponPrefab;
     private PlayerController _playerController;
+    
     public List<Weapon> Weapons { get; set; }
 
     private void Start()

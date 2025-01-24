@@ -6,7 +6,6 @@ using UnityEngine.Serialization;
 public class PlayerController : MonoBehaviour
 {
     public float moveSpeed = 5f;
-    public AnimatorController animatorController;
     public Animator animator;
     public Transform characterTransform;
 
