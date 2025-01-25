@@ -4,7 +4,15 @@
     {
         HIT,
         SHOOT,
+        FIRE,
         LEVEL_UP,
+        EXPLOSION
+    }
+    
+    public enum VFX_TYPE
+    {
+        HIT,
+        EXPLOSION
     }
     
     public enum BGM_TYPE
@@ -37,5 +45,21 @@
     {
         TRACKING,
         LINEAR,
+    }
+
+    public enum WEAPON_TYPE
+    {
+        HAMMER,
+        SWORD,
+        BOW,
+        WAND
+    }
+
+    public enum WEAPON_UPGRADE_OPTIONS
+    {
+        DAMAGE,
+        RANGE,
+        COOLDOWN,
+        FIERCE,
     }
 }

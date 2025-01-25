@@ -1,7 +1,11 @@
-using System;
-using UnityEngine;
+﻿using System;using UnityEngine;
 
-public interface IAnimationCompleteReciever
+public class AnimationCompleteReciever : MonoBehaviour, IAnimationCompleteReciever
 {
-    public abstract void OnAnimationComplete(string animationName);
+    public  Action AnimaionCompleteAction;
+    
+    public void OnAnimationComplete(string animationName)
+    {
+        AnimaionCompleteAction?.Invoke();
+    }
 }

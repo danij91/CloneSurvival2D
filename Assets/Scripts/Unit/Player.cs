@@ -1,14 +1,14 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
+using Enums;
 using UnityEngine;
-using UnityEngine.Serialization;
 
 public class Player : Unit
 {
-    public Weapon defaultWeaponPrefab;
-    private PlayerController _playerController;
+    public float _range;
+    public SpriteRenderer weaponSlot;
 
-    public List<Weapon> Weapons { get; set; }
+    private PlayerController _playerController;
+    private Dictionary<WEAPON_TYPE, Weapon> _weapons;
 
     protected override void Die()
     {
@@ -18,10 +18,38 @@ public class Player : Unit
     private void Start()
     {
         base.OnUse();
-        Weapons = new();
-        Weapon defaultWeapon = Instantiate(defaultWeaponPrefab, transform);
+        _weapons = new();
 
-        Weapons.Add(defaultWeapon);
         _playerController = GameManager.Instance.playerController;
+    }
+
+    public void SetWeaponSprite()
+    {
+    }
+
+    public void UpgradeWeapon(WeaponDatabase.WeaponData data, int index)
+    {
+        Weapon currentWeapon = null;
+
+        bool isFirst = !_weapons.ContainsKey(data.type);
+        if (isFirst)
+        {
+            currentWeapon = Instantiate(data.weaponPrefab, this.transform);
+            currentWeapon.SetRenderer(weaponSlot);
+            _weapons.Add(data.type, currentWeapon);
+        }
+        
+        _weapons[data.type].Upgrade(data, index, isFirst);
+    }
+
+    public bool HasWeapon(WEAPON_TYPE type)
+    {
+        return _weapons.ContainsKey(type);
+    }
+    
+    private void OnDrawGizmos()
+    {
+        Gizmos.color = Color.blue;
+        Gizmos.DrawWireSphere(transform.position, _range);
     }
 }

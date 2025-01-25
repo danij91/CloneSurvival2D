@@ -49,6 +49,7 @@
     <Compile Include="Assets\SPUM\Basic_Resources\Package\Script\SPUM_PresetData.cs" />
     <Compile Include="Assets\SPUM\Script\SoonsoonData.cs" />
     <Compile Include="Assets\SPUM\Script\Plugin\Moments Recorder\Scripts\MinAttribute.cs" />
+    <Compile Include="Assets\Scripts\Armory\Weapons\Ranged\Bow.cs" />
     <Compile Include="Assets\Layer Lab\Scripts\PanelControl.cs" />
     <Compile Include="Assets\SPUM\Sprite_Editor(Beta)\Script\SpriteSyncManager.cs" />
     <Compile Include="Assets\SPUM\Script\SPUM_SpriteButtonST.cs" />
@@ -56,6 +57,7 @@
     <Compile Include="Assets\SPUM\Script\Data\SPUM_AnimationData.cs" />
     <Compile Include="Assets\SPUM\Script\SPUM_LoadPrefabPanel.cs" />
     <Compile Include="Assets\SPUM\Script\Data\PreviewMatchingElement.cs" />
+    <Compile Include="Assets\Scripts\Armory\Weapons\Melee\MeleeWeapon.cs" />
     <Compile Include="Assets\SPUM\Script\SPUM_Manager.cs" />
     <Compile Include="Assets\Scripts\Managers\GameManager.cs" />
     <Compile Include="Assets\Scripts\Util\Enums.cs" />
@@ -64,6 +66,7 @@
     <Compile Include="Assets\Scripts\PlayerController.cs" />
     <Compile Include="Assets\SPUM\Script\SPUM_AnimationManager.cs" />
     <Compile Include="Assets\SPUM\Script\Etc\ColorSelect.cs" />
+    <Compile Include="Assets\Scripts\Armory\Projectiles\MagicBall.cs" />
     <Compile Include="Assets\SPUM\Sample\Script\PlayerObj.cs" />
     <Compile Include="Assets\Scripts\Unit\EnemyEffect\EffectController.cs" />
     <Compile Include="Assets\SPUM\Script\Data\SpumAnimationClip.cs" />
@@ -75,9 +78,11 @@
     <Compile Include="Assets\Scripts\Managers\ExperienceManager.cs" />
     <Compile Include="Assets\SPUM\Script\SPUM_AnimationController.cs" />
     <Compile Include="Assets\SPUM\Sprite_Editor(Beta)\Script\SPUM_SpriteEditManager.cs" />
-    <Compile Include="Assets\Scripts\Armory\Weapons\RangedWeapon.cs" />
+    <Compile Include="Assets\Scripts\Armory\Weapons\Ranged\RangedWeapon.cs" />
+    <Compile Include="Assets\Scripts\Armory\Weapons\Ranged\Wand.cs" />
     <Compile Include="Assets\SPUM\Script\SPUM_EyeSet.cs" />
     <Compile Include="Assets\SPUM\Script\Plugin\Moments Recorder\Scripts\Recorder.cs" />
+    <Compile Include="Assets\Scripts\Unit\EnemyEffect\IAnimationCompleteReciever.cs" />
     <Compile Include="Assets\Scripts\Util\VfxUnit.cs" />
     <Compile Include="Assets\Scripts\Managers\UIManager.cs" />
     <Compile Include="Assets\SPUM\Script\Plugin\Moments Recorder\Scripts\Gif\GifFrame.cs" />
@@ -89,6 +94,8 @@
     <Compile Include="Assets\Scripts\Util\SfxUnit.cs" />
     <Compile Include="Assets\SPUM\Script\Data\SpumPackage.cs" />
     <Compile Include="Assets\SPUM\Sprite_SheetExporter(Beta)\Script\SPUM_Exporter.cs" />
+    <Compile Include="Assets\Scripts\ScriptableObjects\WeaponDatabase.cs" />
+    <Compile Include="Assets\Scripts\Armory\Weapons\Melee\Hammer.cs" />
     <Compile Include="Assets\SPUM\Script\SPUM_AnimationStateElement.cs" />
     <Compile Include="Assets\Scripts\Unit\EnemyEffect\SpriteAnimationEffectController.cs" />
     <Compile Include="Assets\SPUM\Script\Data\SPUM_Prefabs.cs" />
@@ -112,10 +119,10 @@
     <Compile Include="Assets\SPUM\Script\SPUM_AnimationPreset.cs" />
     <Compile Include="Assets\Scripts\Managers\PoolingManager.cs" />
     <Compile Include="Assets\TestFolder\ScriptableObjectComparer.cs" />
+    <Compile Include="Assets\Scripts\Armory\Weapons\Melee\Sword.cs" />
     <Compile Include="Assets\SPUM\Script\SPUM_AnimationStatePanel.cs" />
     <Compile Include="Assets\Scripts\Armory\Weapons\Weapon.cs" />
     <Compile Include="Assets\Scripts\Unit\Enemy\Enemy.cs" />
-    <Compile Include="Assets\Scripts\Armory\Weapons\Bow.cs" />
     <Compile Include="Assets\SPUM\Script\Data\SPUM_MatchingList.cs" />
     <Compile Include="Assets\SPUM\Script\Plugin\Moments Recorder\Scripts\Gif\GifEncoder.cs" />
     <Compile Include="Assets\SPUM\Script\SPUM_SpriteList.cs" />

@@ -1,15 +1,16 @@
 ﻿using Enums;
 using UnityEngine;
 
-public class Projectile : MonoBehaviour
+public class Projectile : PoolingObject
 {
-    public float speed = 5f;
-    public float lifeTime = 3f;
-    public int damage = 10;
+    protected float _speed;
+    protected float _lifeTime;
 
-    public int WeaponDamage { private get; set; }
+    protected int _weaponDamage;
     private Vector3 _direction;
-    private bool _hasCollided = false;
+    protected bool _hasCollided = false;
+
+    protected float _currentTime;
 
     public void SetDirection(Vector2 direction)
     {
@@ -23,25 +24,31 @@ public class Projectile : MonoBehaviour
         transform.rotation = Quaternion.Euler(0, 0, -angle);
     }
 
-    private void Start()
+    public void SetWeaponDamage(int damage)
     {
-        Destroy(gameObject, lifeTime);
+        _weaponDamage = damage;
     }
 
     private void Update()
     {
-        transform.Translate(_direction * speed * Time.deltaTime, Space.World);
+        _currentTime+= Time.deltaTime;
+        if (_currentTime >= _lifeTime)
+        {
+            Restore();
+        }
+        transform.Translate(_direction * _speed * Time.deltaTime, Space.World);
     }
 
-    private void OnTriggerEnter2D(Collider2D collision)
+    internal override void OnInitialize(params object[] parameters)
     {
-        if (!_hasCollided && collision.CompareTag("Enemy"))
-        {
-            _hasCollided = true;
-            collision.GetComponent<Enemy>().TakeDamage(damage + WeaponDamage);
-            FXManager.Instance.PlayVfx(transform.position);
-            FXManager.Instance.PlaySfx(SFX_TYPE.HIT);
-            Destroy(gameObject);
-        }
+        _currentTime = 0;
+    }
+
+    protected override void OnUse()
+    {
+    }
+
+    protected override void OnRestore()
+    {
     }
 }

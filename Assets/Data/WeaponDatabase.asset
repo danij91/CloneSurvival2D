@@ -1,0 +1,87 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f3e7d4549ea54fa59d3d64a7f5bba56d, type: 3}
+  m_Name: WeaponDatabase
+  m_EditorClassIdentifier: 
+  weaponDatas:
+  - name: Hammer
+    weaponPrefab: {fileID: 3023137695101181389, guid: 472287b889ef11c4fbdce1ee252563cf, type: 3}
+    type: 0
+    damage: 20
+    cooldown: 2
+    icon: {fileID: 21300000, guid: bc54460ac3fe5478f9cacb9b1cbdcc69, type: 3}
+    range: 2
+    fierce: 0
+    upgradeOptionDatas:
+    - option: 0
+      name: Damage +
+      value: 3
+    - option: 2
+      name: Cool down -
+      value: 0.91
+    - option: 1
+      name: Range +
+      value: 0.3
+  - name: Sword
+    weaponPrefab: {fileID: 9210991913767602356, guid: 75b8abd991b893b4ca78e815b4b626ef, type: 3}
+    type: 1
+    damage: 6
+    cooldown: 1
+    icon: {fileID: 21300000, guid: 9794293e4605a44d0826e3814ddc8431, type: 3}
+    range: 2
+    fierce: 0
+    upgradeOptionDatas:
+    - option: 0
+      name: Damage +
+      value: 2
+    - option: 2
+      name: Cool down -
+      value: 0.9
+    - option: 1
+      name: Range +
+      value: 0.3
+  - name: Bow
+    weaponPrefab: {fileID: 4239500109747083703, guid: df4b7c8798be6654686983b548d09771, type: 3}
+    type: 2
+    damage: 20
+    cooldown: 1
+    icon: {fileID: 21300000, guid: b703d7727b08947219074023baf91225, type: 3}
+    range: 2
+    fierce: 0
+    upgradeOptionDatas:
+    - option: 0
+      name: Damage +
+      value: 6
+    - option: 2
+      name: Cool down -
+      value: 0.9
+    - option: 3
+      name: Fierce +
+      value: 1
+  - name: Wand
+    weaponPrefab: {fileID: 276883895376444374, guid: d0f4ddf01bc1ad74bb1c29e339d76480, type: 3}
+    type: 3
+    damage: 15
+    cooldown: 1.5
+    icon: {fileID: 21300000, guid: ffef52aa2bdb04c1394af5d4599ed210, type: 3}
+    range: 2
+    fierce: 0
+    upgradeOptionDatas:
+    - option: 0
+      name: Damage +
+      value: 4
+    - option: 2
+      name: Cool down -
+      value: 0.9
+    - option: 1
+      name: Range +
+      value: 0.3
