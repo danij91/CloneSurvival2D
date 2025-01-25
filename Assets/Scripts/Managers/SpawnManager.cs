@@ -1,25 +1,241 @@
+using System;
+using System.Collections.Generic;
+using Enums;
 using UnityEngine;
+using Random = UnityEngine.Random;
+using EnemySpawnPattern = EnemySpawnDatabase.EnemySpawnPattern;
 
 public class SpawnManager : MonoBehaviour
 {
-    public GameObject enemyPrefab;
-    public Transform[] spawnPoints;
+    public EnemySpawnDatabase spawnDatabase;
+
+    private SortedSet<EnemySpawnPattern> activeSpawnPatterns;
+    private SortedSet<EnemySpawnPattern> inactiveSpawnPatterns;
+    private Dictionary<EnemySpawnPattern, float> patternTimers = new();
+    private float _currentTime;
+    private Transform _playerTransform;
 
     private void Start()
     {
-        InvokeRepeating(nameof(SpawnEnemy), 2f, 5f); // 2초 후 5초마다 적 생성
+        _playerTransform = GameManager.Instance.playerController.transform;
+        activeSpawnPatterns =
+            new SortedSet<EnemySpawnPattern>(
+                Comparer<EnemySpawnPattern>.Create((x, y) => x.startTime.CompareTo(y.startTime)));
+
+        inactiveSpawnPatterns = new SortedSet<EnemySpawnPattern>(Comparer<EnemySpawnPattern>.Create((x, y) =>
+            (x.startTime + x.duration).CompareTo(y.startTime + y.duration)));
+
+        foreach (var pattern in spawnDatabase.SpawnPatterns)
+        {
+            if (pattern.startTime <= _currentTime)
+            {
+                AddActivePattern(pattern);
+            }
+            else
+            {
+                inactiveSpawnPatterns.Add(pattern);
+            }
+        }
+    }
+    
+    private void Update()
+    {
+        float currentTime = Time.time;
+        float deltaTime = Time.deltaTime;
+        UpdateSpawnPatterns(currentTime);
+        foreach (var pattern in new List<EnemySpawnPattern>(activeSpawnPatterns))
+        {
+            if (patternTimers.ContainsKey(pattern))
+            {
+                patternTimers[pattern] += deltaTime;
+
+                if (patternTimers[pattern] >= pattern.interval)
+                {
+                    Spawn(pattern);
+                    patternTimers[pattern] -= pattern.interval;
+                }
+            }
+        }
     }
 
-    private void SpawnEnemy()
+    public void UpdateSpawnPatterns(float currentTime)
     {
-        int randomIndex = Random.Range(0, spawnPoints.Length);
-        Instantiate(enemyPrefab, spawnPoints[randomIndex].position + RandomSpawnPoint(3f), Quaternion.identity);
+        foreach (var pattern in new List<EnemySpawnPattern>(activeSpawnPatterns))
+        {
+            if (pattern.startTime + pattern.duration <= currentTime)
+            {
+                activeSpawnPatterns.Remove(pattern);
+            }
+            else
+            {
+                break;
+            }
+        }
+
+        foreach (var pattern in new List<EnemySpawnPattern>(inactiveSpawnPatterns))
+        {
+            if (pattern.startTime <= currentTime)
+            {
+                inactiveSpawnPatterns.Remove(pattern);
+                AddActivePattern(pattern);
+            }
+            else
+            {
+                break;
+            }
+        }
     }
 
-    private Vector3 RandomSpawnPoint(float length)
+    public void AddActivePattern(EnemySpawnPattern pattern)
     {
-        float angle = Random.Range(0f, Mathf.PI * 2f);
-        Vector2 randomDirection = new Vector2(Mathf.Cos(angle), Mathf.Sin(angle));
-        return randomDirection * length;
+        if (!activeSpawnPatterns.Contains(pattern))
+        {
+            activeSpawnPatterns.Add(pattern);
+            patternTimers[pattern] = 0f;
+        }
+    }
+
+    private void Spawn(EnemySpawnPattern pattern)
+    {
+        Vector3[] spawnPoints;
+        Vector3 center = CalculateCenterPosition(pattern.centerType, pattern.distance);
+        switch (pattern.type)
+        {
+            case SPAWN_TYPE.SPOT:
+                spawnPoints = new Vector3[] { center };
+                SpawnEnemy(spawnPoints, pattern.enemySpec);
+                break;
+            case SPAWN_TYPE.SPOT_RANDOM:
+                spawnPoints = RandomSpawnPoints(center, pattern.count, pattern.radius);
+                SpawnEnemy(spawnPoints, pattern.enemySpec);
+                break;
+            case SPAWN_TYPE.CIRCULAR:
+                spawnPoints = CircularSpawnPoints(center, pattern.count, pattern.radius);
+                SpawnEnemy(spawnPoints, pattern.enemySpec);
+                break;
+            case SPAWN_TYPE.LINEAR_VERTICAL:
+                spawnPoints = LinearSpawnPoints(center, pattern.count, pattern.radius, 90);
+                SpawnEnemy(spawnPoints, pattern.enemySpec);
+                break;
+            case SPAWN_TYPE.LINEAR_HORIZONTAL:
+                spawnPoints = LinearSpawnPoints(center, pattern.count, pattern.radius, 0);
+                SpawnEnemy(spawnPoints, pattern.enemySpec);
+                break;
+            case SPAWN_TYPE.LINEAR_RANDOM:
+                float angle = Random.Range(0f, Mathf.PI * 2f);
+
+                spawnPoints = LinearSpawnPoints(center, pattern.count, pattern.radius, angle);
+                SpawnEnemy(spawnPoints, pattern.enemySpec);
+                break;
+            default:
+                throw new ArgumentOutOfRangeException(nameof(pattern.type), pattern.type, null);
+        }
+    }
+
+    private Vector3 CalculateCenterPosition(SPAWN_CENTER_TYPE type, float distance)
+    {
+        Vector3 center = _playerTransform.position;
+        switch (type)
+        {
+            case SPAWN_CENTER_TYPE.NONE:
+            case SPAWN_CENTER_TYPE.CENTER:
+                break;
+            case SPAWN_CENTER_TYPE.CENTER_RANDOM:
+                float angle = Random.Range(0f, Mathf.PI * 2f);
+
+                float x = Mathf.Cos(angle) * distance;
+                float y = Mathf.Sin(angle) * distance;
+
+                center += new Vector3(x, y, 0);
+                break;
+            case SPAWN_CENTER_TYPE.CENTER_TOP:
+                center += Vector3.up * distance;
+                break;
+            case SPAWN_CENTER_TYPE.CENTER_BOTTOM:
+                center += Vector3.down * distance;
+                break;
+            case SPAWN_CENTER_TYPE.CENTER_LEFT:
+                center += Vector3.left * distance;
+                break;
+            case SPAWN_CENTER_TYPE.CENTER_RIGHT:
+                center += Vector3.right * distance;
+                break;
+            default:
+                throw new ArgumentOutOfRangeException(nameof(type), type, null);
+        }
+
+        return center;
+    }
+
+    private void SpawnEnemy(Vector3[] positions, EnemySpawnDatabase.EnemySpec enemySpec)
+    {
+        foreach (var pos in positions)
+        {
+            PoolingManager.Instance.Create<Slime>(POOL_TYPE.Enemy, enemySpec.name,null, enemySpec);
+        }
+    }
+
+    private Vector3[] RandomSpawnPoints(Vector3 center, int count, float radius = 0f)
+    {
+        Vector3[] points = new Vector3[count];
+
+        for (int i = 0; i < count; i++)
+        {
+            float angle = Random.Range(0f, Mathf.PI * 2f);
+            float distance = Random.Range(0f, radius);
+
+            float x = center.x + Mathf.Cos(angle) * distance;
+            float y = center.y + Mathf.Sin(angle) * distance;
+
+            float z = center.y;
+
+            points[i] = new Vector3(x, y, z);
+            if (IsCloseToPlayer(points[i]))
+            {
+                i--;
+            }
+        }
+
+        return points;
+    }
+
+    private bool IsCloseToPlayer(Vector3 pos)
+    {
+        return ((Vector2)pos - (Vector2)_playerTransform.position).sqrMagnitude <
+               Mathf.Pow(spawnDatabase.minimumSpawnDistance, 2);
+    }
+
+    private Vector3[] CircularSpawnPoints(Vector3 center, int count, float radius)
+    {
+        Vector3[] points = new Vector3[count];
+
+        for (int i = 0; i < count; i++)
+        {
+            float angle = i * Mathf.PI * 2f / count;
+
+            float x = center.x + Mathf.Cos(angle) * radius;
+            float y = center.y + Mathf.Sin(angle) * radius;
+
+            points[i] = new Vector3(x, y, center.z);
+        }
+
+        return points;
+    }
+
+    private Vector3[] LinearSpawnPoints(Vector3 center, int count, float length, float angle)
+    {
+        Vector3[] points = new Vector3[count];
+
+        float radian = angle * Mathf.Deg2Rad;
+
+        Vector3 direction = new Vector3(Mathf.Cos(radian), 0, Mathf.Sin(radian));
+
+        for (int i = 0; i < count; i++)
+        {
+            float t = Random.Range(0f, length);
+            points[i] = center + direction * t;
+        }
+
+        return points;
     }
 }

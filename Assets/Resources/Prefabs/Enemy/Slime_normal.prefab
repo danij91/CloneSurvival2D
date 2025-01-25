@@ -44,7 +44,7 @@ Rigidbody2D:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 765525938878313171}
-  m_BodyType: 1
+  m_BodyType: 0
   m_Simulated: 1
   m_UseFullKinematicContacts: 0
   m_UseAutoMass: 0
@@ -62,7 +62,7 @@ Rigidbody2D:
   m_Interpolate: 0
   m_SleepingMode: 1
   m_CollisionDetection: 0
-  m_Constraints: 0
+  m_Constraints: 4
 --- !u!61 &3217022038803048843
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -124,9 +124,10 @@ MonoBehaviour:
   hpBar: {fileID: 5366834029574145821}
   maxHealth: 30
   characterModel: {fileID: 7441472694797506875}
-  moveSpeed: 3
-  basicDamage: 10
+  _moveSpeed: 0
+  _basicDamage: 0
   _experience: 10
+  _movementType: 0
 --- !u!1001 &629387579816485199
 PrefabInstance:
   m_ObjectHideFlags: 0

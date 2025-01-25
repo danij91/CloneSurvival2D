@@ -2,13 +2,13 @@ using System;
 using UnityEngine;
 using UnityEngine.Serialization;
 
-[CreateAssetMenu(fileName = "SFXClipDatabase", menuName = "Audio/SFXClipDatabase")]
+[CreateAssetMenu(fileName = "SFXClipDatabase", menuName = "Database/SFXClipDatabase")]
 public class SFXClipDatabase : ScriptableObject
 {
     [Serializable]
     public class FixedSfxAudioClip
     {
-        public Enums.SFX_TYPE key;
+        public Enums.SFX_TYPE type;
         public AudioClip clip;
     }
 
@@ -17,7 +17,7 @@ public class SFXClipDatabase : ScriptableObject
     [Serializable]
     public class BgmAudioClip
     {
-        public Enums.BGM_TYPE key;
+        public Enums.BGM_TYPE type;
         public AudioClip clip;
     }
     
@@ -27,7 +27,7 @@ public class SFXClipDatabase : ScriptableObject
     {
         foreach (var sfxAudioClip in vfxClips)
         {
-            if (sfxAudioClip.key == sfx)
+            if (sfxAudioClip.type == sfx)
             {
                 return sfxAudioClip.clip;
             }
@@ -40,7 +40,7 @@ public class SFXClipDatabase : ScriptableObject
     {
         foreach (var bgmAudioClip in bgmClips)
         {
-            if (bgmAudioClip.key == bgm)
+            if (bgmAudioClip.type == bgm)
             {
                 return bgmAudioClip.clip;
             }

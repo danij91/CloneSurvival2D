@@ -1,24 +1,41 @@
 using System;
+using Enums;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 public abstract class Enemy : Unit
 {
-    public float moveSpeed = 3f;
-    public int basicDamage = 10;
-    public int _experience = 10;
+    [SerializeField] private float _moveSpeed;
+    [SerializeField] private int _basicDamage;
+    [SerializeField] private int _experience;
+    [SerializeField] private Enums.MOVEMENT_TYPE _movementType;
 
     private Transform _playerTransform;
     private bool _isStop;
 
     protected virtual void Update()
     {
+        Move();
+    }
+
+    protected virtual void Move()
+    {
         if (_isStop)
         {
             return;
         }
 
-        Vector2 direction = (_playerTransform.position - transform.position).normalized;
-        transform.position += (Vector3)direction * (moveSpeed * Time.deltaTime);
+        switch (_movementType)
+        {
+            case MOVEMENT_TYPE.TRACKING:
+                Vector2 direction = (_playerTransform.position - transform.position).normalized;
+                transform.position += (Vector3)direction * (_moveSpeed * Time.deltaTime);
+                break;
+            case MOVEMENT_TYPE.LINEAR:
+                break;
+            default:
+                throw new ArgumentOutOfRangeException();
+        }
     }
 
     protected virtual void Attack(Vector2 direction)
@@ -39,30 +56,43 @@ public abstract class Enemy : Unit
     protected override void Die()
     {
         ExperienceManager.Instance.TakeExperience(_experience);
-        Destroy(gameObject);
-    }
-
-    protected override void Initialize()
-    {
-        base.Initialize();
-        _playerTransform = GameManager.Instance.playerController.transform;
-        OnPlayDamageEffect = Stop;
-        OnCompleteDamageEffect = Move;
-        OnDamaged = ()=> { FXManager.Instance.PlaySfx(Enums.SFX_TYPE.HIT); };
+        Restore();
     }
 
     protected virtual int CalculateDamage()
     {
-        return basicDamage;
+        return _basicDamage;
     }
 
-    private void Stop()
+    private void StopMovement()
     {
         _isStop = true;
     }
 
-    private void Move()
+    private void StartMovement()
     {
         _isStop = false;
+    }
+
+
+    internal override void OnInitialize(params object[] parameters)
+    {
+        if (parameters.Length > 0)
+        {
+            var enemySpec = (EnemySpawnDatabase.EnemySpec)parameters[0];
+            maxHealth = enemySpec.health;
+            _basicDamage = enemySpec.damage;
+            _movementType = enemySpec.movementType;
+            _moveSpeed = enemySpec.speed;
+        }
+
+        _playerTransform = GameManager.Instance.playerController.transform;
+        OnPlayDamageEffect = StopMovement;
+        OnCompleteDamageEffect = StartMovement;
+        OnDamaged = () => { FXManager.Instance.PlaySfx(Enums.SFX_TYPE.HIT); };
+    }
+
+    protected override void OnRestore()
+    {
     }
 }

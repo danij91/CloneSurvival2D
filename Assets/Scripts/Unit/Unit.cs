@@ -3,7 +3,7 @@ using System.Collections;
 using UnityEngine;
 using UnityEngine.Serialization;
 
-public abstract class Unit : MonoBehaviour
+public abstract class Unit : PoolingObject
 {
     public ProgressBar2D hpBar;
     private int _currentHealth;
@@ -12,9 +12,8 @@ public abstract class Unit : MonoBehaviour
 
     private const int BLINK_COUNT = 2;
     private const float BLINK_INTERVAL = 0.2f;
-    
+
     protected Action OnDamaged;
-    
     protected Action OnPlayDamageEffect;
     protected Action OnCompleteDamageEffect;
 
@@ -35,7 +34,7 @@ public abstract class Unit : MonoBehaviour
         }
     }
 
-    protected IEnumerator DamageEffect()
+    private IEnumerator DamageEffect()
     {
         OnPlayDamageEffect?.Invoke();
 
@@ -45,7 +44,7 @@ public abstract class Unit : MonoBehaviour
             {
                 characterModel.SetActive(false);
                 yield return new WaitForSeconds(BLINK_INTERVAL);
-                
+
                 characterModel.SetActive(true);
                 yield return new WaitForSeconds(BLINK_INTERVAL);
             }
@@ -56,8 +55,17 @@ public abstract class Unit : MonoBehaviour
 
     protected abstract void Die();
 
-    protected virtual void Initialize()
+    internal override void OnInitialize(params object[] parameters)
+    {
+    }
+
+    protected override void OnUse()
     {
         _currentHealth = maxHealth;
+        hpBar.UpdateHp(_currentHealth, maxHealth);
+    }
+
+    protected override void OnRestore()
+    {
     }
 }

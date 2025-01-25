@@ -10,19 +10,14 @@ public class Player : Unit
 
     public List<Weapon> Weapons { get; set; }
 
-    private void Start()
-    {
-        Initialize();
-    }
-
     protected override void Die()
     {
         _playerController.enabled = false;
     }
 
-    protected override void Initialize()
+    private void Start()
     {
-        base.Initialize();
+        base.OnUse();
         Weapons = new();
         Weapon defaultWeapon = Instantiate(defaultWeaponPrefab, transform);
 
