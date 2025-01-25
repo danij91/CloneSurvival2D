@@ -1,24 +1,54 @@
 using System;
 using System.Collections.Generic;
+using Enums;
 using UnityEngine;
+using UnityEngine.Serialization;
 using UnityEngine.UI;
 using Random = UnityEngine.Random;
 
 public class ExperienceManager : Singleton<ExperienceManager>
 {
+    //레벨업 테스트용 코드
+#if UNITY_EDITOR
+    public bool ForceWeaponType;
+    public WEAPON_TYPE wt;
+    public bool ForceWeaponOption = false;
+    public int ot;
+#endif
+    
     public SelectionCard selectionCardPrefab;
     public RectTransform selectionPanel;
     public Slider experienceBar;
+    public WeaponDatabase weaponDatabase;
 
     private int _currentExperience;
     private int _currentMaxExperience = 10;
     private int _currentLevel = 1;
     private Player _player;
-    private List<int[]> upgradeOptions = new();
+    private List<WeaponDatabase.WeaponData> _currentSelectedWeaponData = new();
+    private List<int> _currentSelectedOptionIndex = new();
     private List<SelectionCard> _selectionCards = new();
     private int _levelUpCount = 0;
 
     private const int OPTION_COUNT = 3;
+
+    private void Start()
+    {
+        _player = GameManager.Instance.playerController.GetComponent<Player>();
+        GameManager.Instance.PauseGame();
+
+        for (int i = 0; i < OPTION_COUNT; i++)
+        {
+            SelectionCard newCard = Instantiate(selectionCardPrefab, selectionPanel);
+            _selectionCards.Add(newCard);
+            int index = i;
+            _selectionCards[i].SetOnBtnClick(() => OnSelectCard(index));
+            _currentSelectedWeaponData.Add(null);
+            _currentSelectedOptionIndex.Add(0);
+        }
+
+        ShowUpgradeSelectionUI(true);
+    }
 
     public void TakeExperience(int experience)
     {
@@ -32,25 +62,11 @@ public class ExperienceManager : Singleton<ExperienceManager>
         experienceBar.value = (float)_currentExperience / _currentMaxExperience;
     }
 
-    private void Start()
-    {
-        for (int i = 0; i < OPTION_COUNT; i++)
-        {
-            SelectionCard newCard = Instantiate(selectionCardPrefab, selectionPanel);
-            _selectionCards.Add(newCard);
-            int index = i;
-            _selectionCards[i].SetOnBtnClick(() => OnSelectCard(index));
-        }
-
-        HideUpgradeSelectionUI();
-
-        _player = GameManager.Instance.playerController.GetComponent<Player>();
-    }
-
     private void OnSelectCard(int cardIndex)
     {
-        _player.Weapons[upgradeOptions[cardIndex][0]].Upgrade(upgradeOptions[cardIndex][1]);
+        _player.UpgradeWeapon(_currentSelectedWeaponData[cardIndex], _currentSelectedOptionIndex[cardIndex]);
         _levelUpCount--;
+
         if (_levelUpCount > 0)
         {
             ShowUpgradeSelectionUI();
@@ -65,6 +81,7 @@ public class ExperienceManager : Singleton<ExperienceManager>
 
     private void LevelUp()
     {
+        GameManager.Instance.PauseGame();
         FXManager.Instance.PlaySfx(Enums.SFX_TYPE.LEVEL_UP);
         GameManager.Instance.PauseGame();
         _levelUpCount++;
@@ -79,25 +96,51 @@ public class ExperienceManager : Singleton<ExperienceManager>
         return _currentMaxExperience * 2;
     }
 
-    private void ShowUpgradeSelectionUI()
+    private void ShowUpgradeSelectionUI(bool isFirst = false)
     {
-        int weaponCount = _player.Weapons.Count;
-        Weapon selectedWeapon = null;
+        int weaponCount = weaponDatabase.weaponDatas.Length;
+        WeaponDatabase.WeaponData selectedWeapon;
+
+        int weaponIndex = 0;
         for (int i = 0; i < OPTION_COUNT; i++)
         {
-            if (upgradeOptions.Count <= i)
+#if UNITY_EDITOR
+            if (ForceWeaponType)
             {
-                upgradeOptions.Add(new int[3]);
+                weaponIndex = (int)wt;
             }
+            else
+            {
+                weaponIndex = Random.Range(0, weaponCount);
+            }
+#else
+            weaponIndex = Random.Range(0, weaponCount);
+#endif
+            selectedWeapon = weaponDatabase.weaponDatas[weaponIndex];
+            _currentSelectedWeaponData[i] = selectedWeapon;
+            _selectionCards[i].SetIcon(selectedWeapon.icon);
 
-            int weaponIndex = Random.Range(0, weaponCount);
-            selectedWeapon = _player.Weapons[weaponIndex];
-            upgradeOptions[i][0] = weaponIndex;
-            upgradeOptions[i][1] = Random.Range(0, _player.Weapons[weaponIndex].GetOptionCount());
-
-            string optionName = selectedWeapon.GetOptionName(upgradeOptions[i][1]);
-
-            _selectionCards[i].SetSelectionSpec(optionName, selectedWeapon.weaponIcon);
+            if (isFirst || !_player.HasWeapon(selectedWeapon.type))
+            {
+                _selectionCards[i].SetOptionName(selectedWeapon.name);
+            }
+            else
+            {
+#if UNITY_EDITOR
+                if (ForceWeaponType)
+                {
+                    _currentSelectedOptionIndex[i] = ot;
+                }
+                else
+                {
+                    _currentSelectedOptionIndex[i] = Random.Range(0, selectedWeapon.upgradeOptionDatas.Count);
+                }
+#else
+                // _currentSelectedOptionIndex[i] = Random.Range(0, selectedWeapon.upgradeOptionDatas.Count);
+#endif
+                _selectionCards[i]
+                    .SetOptionName(selectedWeapon.upgradeOptionDatas[_currentSelectedOptionIndex[i]].name);
+            }
         }
 
         selectionPanel.gameObject.SetActive(true);

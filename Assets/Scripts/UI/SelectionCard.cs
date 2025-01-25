@@ -1,4 +1,5 @@
 using System;
+using Enums;
 using TMPro;
 using UnityEngine;
 using UnityEngine.Serialization;
@@ -10,10 +11,17 @@ public class SelectionCard : MonoBehaviour
     public Image img_icon;
     public TMP_Text txt_option;
 
-    public void SetSelectionSpec(string option,Sprite icon)
+    private int _weaponIndex;
+    private int _upgradeOptionIndex;
+
+    public void SetIcon(Sprite icon)
+    {
+        img_icon.sprite = icon;
+    }
+
+    public void SetOptionName(string option)
     {
         txt_option.text = option;
-        img_icon.sprite = icon;
     }
 
     public void SetOnBtnClick(Action onclick)

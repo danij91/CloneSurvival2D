@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using Enums;
 using UnityEngine;
 using UnityEngine.Serialization;
 
@@ -12,25 +13,32 @@ public class FXManager : Singleton<FXManager>
     public AudioSource bgmAudioSource;
 
     private readonly List<SfxUnit> sfxUnits = new List<SfxUnit>();
+    private Dictionary<VFX_TYPE, string> _vfxFileNames = new Dictionary<VFX_TYPE, string>();
 
     private void Start()
     {
         bgmAudioSource.volume = bgmVolume;
     }
 
-    public void PlayVfx(Vector3 pos)
+    public void PlayVfx(Vector3 pos, VFX_TYPE type, float scale = 1f)
     {
-        PoolingManager.Instance.Create<VfxUnit>(POOL_TYPE.Vfx, pos, "Hit");
+        if (!_vfxFileNames.ContainsKey(type))
+        {
+            string typeToString = Enum.GetName(typeof(VFX_TYPE), type);
+            _vfxFileNames.Add(type, typeToString);
+        }
+
+        PoolingManager.Instance.Create<VfxUnit>(POOL_TYPE.Vfx, pos, _vfxFileNames[type], null, scale);
     }
 
-    public void PlaySfx(Enums.SFX_TYPE type)
+    public void PlaySfx(SFX_TYPE type)
     {
         var unit = PoolingManager.Instance.Create<SfxUnit>(POOL_TYPE.Sfx, "SfxUnit");
 
         unit.Play(sfxDatabase.GetSfxClip(type));
     }
 
-    public void PlayBgm(Enums.BGM_TYPE type)
+    public void PlayBgm(BGM_TYPE type)
     {
         bgmAudioSource.clip = sfxDatabase.GetBgmClip(type);
         bgmAudioSource.Play();

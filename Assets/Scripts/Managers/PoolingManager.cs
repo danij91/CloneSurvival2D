@@ -8,7 +8,7 @@ public enum POOL_TYPE
     Sfx,
     Vfx,
     Enemy,
-    Player,
+    Projectile
 }
 
 public class PoolingManager : Singleton<PoolingManager>
