@@ -26,11 +26,11 @@ MonoBehaviour:
       speed: 3
       movementType: 0
     count: 1
-    startTime: 0
+    startTime: 3
     duration: 3000
   - type: 1
     centerType: 2
-    interval: 5
+    interval: 10
     radius: 3
     distance: 15
     enemySpec:
@@ -40,5 +40,19 @@ MonoBehaviour:
       speed: 4
       movementType: 0
     count: 3
-    startTime: 0
+    startTime: 30
+    duration: 3000
+  - type: 2
+    centerType: 1
+    interval: 15
+    radius: 7
+    distance: 10
+    enemySpec:
+      name: Slime_Red
+      health: 70
+      damage: 15
+      speed: 4
+      movementType: 0
+    count: 15
+    startTime: 60
     duration: 3000

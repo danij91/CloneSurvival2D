@@ -138,7 +138,7 @@ public class SpawnManager : MonoBehaviour
     {
         foreach (var pos in positions)
         {
-            PoolingManager.Instance.Create<Slime>(POOL_TYPE.Enemy, enemySpec.name, null, enemySpec);
+            PoolingManager.Instance.Create<Slime>(POOL_TYPE.Enemy, pos, enemySpec.name, null, enemySpec);
         }
     }
 
