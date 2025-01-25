@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using Enums;
+using UnityEngine;
 
 public class Projectile : MonoBehaviour
 {
@@ -8,6 +9,7 @@ public class Projectile : MonoBehaviour
 
     public int WeaponDamage { private get; set; }
     private Vector3 _direction;
+    private bool _hasCollided = false;
 
     public void SetDirection(Vector2 direction)
     {
@@ -33,10 +35,12 @@ public class Projectile : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (collision.CompareTag("Enemy"))
+        if (!_hasCollided && collision.CompareTag("Enemy"))
         {
+            _hasCollided = true;
             collision.GetComponent<Enemy>().TakeDamage(damage + WeaponDamage);
             FXManager.Instance.PlayVfx(transform.position);
+            FXManager.Instance.PlaySfx(SFX_TYPE.HIT);
             Destroy(gameObject);
         }
     }

@@ -20,12 +20,12 @@ public class FXManager : Singleton<FXManager>
 
     public void PlayVfx(Vector3 pos)
     {
-        PoolingManager.Instance.Create<VfxUnit>(POOL_TYPE.VFX, pos, "Hit");
+        PoolingManager.Instance.Create<VfxUnit>(POOL_TYPE.Vfx, pos, "Hit");
     }
 
     public void PlaySfx(Enums.SFX_TYPE type)
     {
-        var unit = PoolingManager.Instance.Create<SfxUnit>(POOL_TYPE.SFX, "SfxUnit");
+        var unit = PoolingManager.Instance.Create<SfxUnit>(POOL_TYPE.Sfx, "SfxUnit");
 
         unit.Play(sfxDatabase.GetSfxClip(type));
     }

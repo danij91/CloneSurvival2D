@@ -37,8 +37,8 @@ public abstract class PoolingObject : MonoBehaviour
                     OnUse();
                     break;
                 case POOLING_STATE.WAITING:
-                    OnRestore();
                     gameObject.SetActive(false);
+                    OnRestore();
                     break;
             }
         }
@@ -59,7 +59,7 @@ public abstract class PoolingObject : MonoBehaviour
         PoolingState = POOLING_STATE.WAITING;
     }
 
-    internal abstract void OnInitialize();
+    internal abstract void OnInitialize(params object[] parameters);
     protected abstract void OnUse();
     protected abstract void OnRestore();
 }

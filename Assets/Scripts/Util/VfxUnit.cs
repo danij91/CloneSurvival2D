@@ -2,12 +2,12 @@
 
 public class VfxUnit : PoolingObject
 {
-    public void OnAnimationEnd()
+    public void OnAnimationComplete()
     {
         Restore();
     }
 
-    internal override void OnInitialize()
+    internal override void OnInitialize(params object[] parameters)
     {
     }
 

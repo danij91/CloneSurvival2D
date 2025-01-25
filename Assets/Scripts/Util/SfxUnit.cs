@@ -30,7 +30,7 @@ public class SfxUnit : PoolingObject
         Restore();
     }
 
-    internal override void OnInitialize()
+    internal override void OnInitialize(params object[] parameters)
     {
     }
 

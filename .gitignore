@@ -23,3 +23,9 @@ Pods/
 
 # Unity Collaborate
 *.collab
+
+Assets/TestFolder/
+
+Assets/TestFolder.meta
+
+UserSettings/Layouts/

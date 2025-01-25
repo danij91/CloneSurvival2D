@@ -5,8 +5,10 @@ using UnityEngine;
 
 public enum POOL_TYPE
 {
-    SFX,
-    VFX
+    Sfx,
+    Vfx,
+    Enemy,
+    Player,
 }
 
 public class PoolingManager : Singleton<PoolingManager>
@@ -69,7 +71,7 @@ public class PoolingManager : Singleton<PoolingManager>
     }
 
 
-    public T Create<T>(POOL_TYPE type, string resourceName, Transform parent = null)
+    public T Create<T>(POOL_TYPE type, string resourceName, Transform parent = null, params object[] parameters)
         where T : PoolingObject
     {
         bool isContainsResources = _poolingList.ContainsKey(type);
@@ -82,8 +84,8 @@ public class PoolingManager : Singleton<PoolingManager>
 
             if (poolingObj != null)
             {
+                poolingObj.OnInitialize(parameters);
                 poolingObj.Use();
-                poolingObj.OnInitialize();
                 return poolingObj;
             }
         }
@@ -91,13 +93,14 @@ public class PoolingManager : Singleton<PoolingManager>
         var newObj = CreatePoolingObject<T>(type, resourceName);
         if (parent != null) newObj.transform.SetParent(parent);
 
+        newObj.OnInitialize(parameters);
         newObj.Use();
-        newObj.OnInitialize();
 
         return newObj;
     }
 
-    public T Create<T>(POOL_TYPE type, Vector3 position, string resourceName, Transform parent = null)
+    public T Create<T>(POOL_TYPE type, Vector3 position, string resourceName, Transform parent = null,
+        params object[] parameters)
         where T : PoolingObject
     {
         bool isContainsResources = _poolingList.ContainsKey(type);
@@ -110,9 +113,9 @@ public class PoolingManager : Singleton<PoolingManager>
 
             if (poolingObj != null)
             {
+                poolingObj.OnInitialize(parameters);
                 poolingObj.Use();
                 poolingObj.transform.position = position;
-                poolingObj.OnInitialize();
                 return poolingObj;
             }
         }
@@ -120,9 +123,9 @@ public class PoolingManager : Singleton<PoolingManager>
         var newObj = CreatePoolingObject<T>(type, resourceName);
         if (parent != null) newObj.transform.SetParent(parent);
 
+        newObj.OnInitialize(parameters);
         newObj.Use();
         newObj.transform.position = position;
-        newObj.OnInitialize();
 
         return newObj;
     }
