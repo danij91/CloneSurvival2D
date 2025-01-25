@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using Enums;
+using UnityEngine;
 
 public class Projectile : MonoBehaviour
 {
@@ -39,6 +40,7 @@ public class Projectile : MonoBehaviour
             _hasCollided = true;
             collision.GetComponent<Enemy>().TakeDamage(damage + WeaponDamage);
             FXManager.Instance.PlayVfx(transform.position);
+            FXManager.Instance.PlaySfx(SFX_TYPE.HIT);
             Destroy(gameObject);
         }
     }

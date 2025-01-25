@@ -84,8 +84,8 @@ public class PoolingManager : Singleton<PoolingManager>
 
             if (poolingObj != null)
             {
-                poolingObj.Use();
                 poolingObj.OnInitialize(parameters);
+                poolingObj.Use();
                 return poolingObj;
             }
         }
@@ -93,8 +93,8 @@ public class PoolingManager : Singleton<PoolingManager>
         var newObj = CreatePoolingObject<T>(type, resourceName);
         if (parent != null) newObj.transform.SetParent(parent);
 
-        newObj.Use();
         newObj.OnInitialize(parameters);
+        newObj.Use();
 
         return newObj;
     }
@@ -113,9 +113,9 @@ public class PoolingManager : Singleton<PoolingManager>
 
             if (poolingObj != null)
             {
+                poolingObj.OnInitialize(parameters);
                 poolingObj.Use();
                 poolingObj.transform.position = position;
-                poolingObj.OnInitialize(parameters);
                 return poolingObj;
             }
         }
@@ -123,9 +123,9 @@ public class PoolingManager : Singleton<PoolingManager>
         var newObj = CreatePoolingObject<T>(type, resourceName);
         if (parent != null) newObj.transform.SetParent(parent);
 
+        newObj.OnInitialize(parameters);
         newObj.Use();
         newObj.transform.position = position;
-        newObj.OnInitialize(parameters);
 
         return newObj;
     }

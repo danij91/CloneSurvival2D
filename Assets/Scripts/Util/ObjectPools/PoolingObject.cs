@@ -37,8 +37,8 @@ public abstract class PoolingObject : MonoBehaviour
                     OnUse();
                     break;
                 case POOLING_STATE.WAITING:
-                    OnRestore();
                     gameObject.SetActive(false);
+                    OnRestore();
                     break;
             }
         }

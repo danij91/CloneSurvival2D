@@ -2,7 +2,7 @@
 
 public class VfxUnit : PoolingObject
 {
-    public void OnAnimationEnd()
+    public void OnAnimationComplete()
     {
         Restore();
     }

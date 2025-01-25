@@ -9,89 +9,56 @@ public class SpawnManager : MonoBehaviour
 {
     public EnemySpawnDatabase spawnDatabase;
 
-    private SortedSet<EnemySpawnPattern> activeSpawnPatterns;
-    private SortedSet<EnemySpawnPattern> inactiveSpawnPatterns;
-    private Dictionary<EnemySpawnPattern, float> patternTimers = new();
-    private float _currentTime;
+    private List<PatternState> activePatterns = new();
     private Transform _playerTransform;
+
+    private class PatternState
+    {
+        public float nextSpawnTime;
+        public float endTime;
+        public EnemySpawnPattern pattern;
+        public bool isActive;
+    }
 
     private void Start()
     {
         _playerTransform = GameManager.Instance.playerController.transform;
-        activeSpawnPatterns =
-            new SortedSet<EnemySpawnPattern>(
-                Comparer<EnemySpawnPattern>.Create((x, y) => x.startTime.CompareTo(y.startTime)));
-
-        inactiveSpawnPatterns = new SortedSet<EnemySpawnPattern>(Comparer<EnemySpawnPattern>.Create((x, y) =>
-            (x.startTime + x.duration).CompareTo(y.startTime + y.duration)));
 
         foreach (var pattern in spawnDatabase.SpawnPatterns)
         {
-            if (pattern.startTime <= _currentTime)
+            var state = new PatternState
             {
-                AddActivePattern(pattern);
-            }
-            else
-            {
-                inactiveSpawnPatterns.Add(pattern);
-            }
+                nextSpawnTime = pattern.startTime,
+                endTime = pattern.startTime + pattern.duration,
+                pattern = pattern,
+                isActive = false
+            };
+
+            activePatterns.Add(state);
         }
     }
-    
+
     private void Update()
     {
         float currentTime = Time.time;
-        float deltaTime = Time.deltaTime;
-        UpdateSpawnPatterns(currentTime);
-        foreach (var pattern in new List<EnemySpawnPattern>(activeSpawnPatterns))
-        {
-            if (patternTimers.ContainsKey(pattern))
-            {
-                patternTimers[pattern] += deltaTime;
 
-                if (patternTimers[pattern] >= pattern.interval)
-                {
-                    Spawn(pattern);
-                    patternTimers[pattern] -= pattern.interval;
-                }
-            }
-        }
-    }
-
-    public void UpdateSpawnPatterns(float currentTime)
-    {
-        foreach (var pattern in new List<EnemySpawnPattern>(activeSpawnPatterns))
+        foreach (var state in activePatterns)
         {
-            if (pattern.startTime + pattern.duration <= currentTime)
+            if (!state.isActive && currentTime >= state.pattern.startTime)
             {
-                activeSpawnPatterns.Remove(pattern);
+                state.isActive = true;
             }
-            else
-            {
-                break;
-            }
-        }
 
-        foreach (var pattern in new List<EnemySpawnPattern>(inactiveSpawnPatterns))
-        {
-            if (pattern.startTime <= currentTime)
+            if (state.isActive && currentTime >= state.nextSpawnTime)
             {
-                inactiveSpawnPatterns.Remove(pattern);
-                AddActivePattern(pattern);
+                Spawn(state.pattern);
+                state.nextSpawnTime += state.pattern.interval;
             }
-            else
-            {
-                break;
-            }
-        }
-    }
 
-    public void AddActivePattern(EnemySpawnPattern pattern)
-    {
-        if (!activeSpawnPatterns.Contains(pattern))
-        {
-            activeSpawnPatterns.Add(pattern);
-            patternTimers[pattern] = 0f;
+            if (state.isActive && currentTime >= state.endTime)
+            {
+                state.isActive = false;
+            }
         }
     }
 
@@ -171,7 +138,7 @@ public class SpawnManager : MonoBehaviour
     {
         foreach (var pos in positions)
         {
-            PoolingManager.Instance.Create<Slime>(POOL_TYPE.Enemy, enemySpec.name,null, enemySpec);
+            PoolingManager.Instance.Create<Slime>(POOL_TYPE.Enemy, enemySpec.name, null, enemySpec);
         }
     }
 

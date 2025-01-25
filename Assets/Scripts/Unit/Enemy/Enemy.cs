@@ -9,6 +9,7 @@ public abstract class Enemy : Unit
     [SerializeField] private int _basicDamage;
     [SerializeField] private int _experience;
     [SerializeField] private Enums.MOVEMENT_TYPE _movementType;
+    public BoxCollider2D _boxCollider;
 
     private Transform _playerTransform;
     private bool _isStop;
@@ -55,8 +56,15 @@ public abstract class Enemy : Unit
 
     protected override void Die()
     {
-        ExperienceManager.Instance.TakeExperience(_experience);
-        Restore();
+        _boxCollider.enabled = false;
+        StopMovement();
+        effectController.OnCompleteDeathEffect = () =>
+        {
+            ExperienceManager.Instance.TakeExperience(_experience);
+            Restore();
+        };
+
+        effectController.PlayDeathEffect();
     }
 
     protected virtual int CalculateDamage()
@@ -87,9 +95,17 @@ public abstract class Enemy : Unit
         }
 
         _playerTransform = GameManager.Instance.playerController.transform;
-        OnPlayDamageEffect = StopMovement;
-        OnCompleteDamageEffect = StartMovement;
-        OnDamaged = () => { FXManager.Instance.PlaySfx(Enums.SFX_TYPE.HIT); };
+        _boxCollider = GetComponent<BoxCollider2D>();
+
+        effectController.OnPlayTakeDamageEffect = StopMovement;
+        effectController.OnCompleteTakeDamageEffect = StartMovement;
+    }
+
+    protected override void OnUse()
+    {
+        base.OnUse();
+        StartMovement();
+        _boxCollider.enabled = true;
     }
 
     protected override void OnRestore()

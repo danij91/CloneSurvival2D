@@ -20,11 +20,25 @@ MonoBehaviour:
     radius: 3
     distance: 0
     enemySpec:
-      name: Slime_normal
-      health: 20
+      name: Slime_Green
+      health: 30
       damage: 10
       speed: 3
       movementType: 0
     count: 1
+    startTime: 0
+    duration: 3000
+  - type: 1
+    centerType: 2
+    interval: 5
+    radius: 3
+    distance: 15
+    enemySpec:
+      name: Slime_Blue
+      health: 50
+      damage: 15
+      speed: 4
+      movementType: 0
+    count: 3
     startTime: 0
     duration: 3000
