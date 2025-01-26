@@ -5,6 +5,8 @@ using UnityEngine.Serialization;
 [CreateAssetMenu(fileName = "SFXClipDatabase", menuName = "Database/SFXClipDatabase")]
 public class SFXClipDatabase : ScriptableObject
 {
+    [Range(0, 1)]
+    public float sfxVolume, bgmVolume;
     [Serializable]
     public class FixedSfxAudioClip
     {

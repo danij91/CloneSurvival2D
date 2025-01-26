@@ -4,6 +4,7 @@ using UnityEngine;
 
 public abstract class Weapon : MonoBehaviour
 {
+    public bool isActive;
     private SpriteRenderer _weaponRender;
 
     protected string weaponName;
@@ -14,9 +15,13 @@ public abstract class Weapon : MonoBehaviour
     protected float[] upgradeOptionSpecs;
     protected float _cooldownTimer;
     protected Transform _playerTransform;
-    
+
     protected virtual void Update()
     {
+        if (!isActive)
+        {
+            return;
+        }
         _cooldownTimer -= Time.deltaTime;
 
         if (!IsAttackReady())
@@ -27,10 +32,10 @@ public abstract class Weapon : MonoBehaviour
         Attack(GameManager.Instance.playerController.GetDirection());
         _cooldownTimer = _attackCooldown;
     }
-    
-    public virtual void Upgrade(WeaponDatabase.WeaponData data, int index, bool isFirst = false)
+
+    public virtual void Upgrade(WeaponDatabase.WeaponData data, int index)
     {
-        if (isFirst)
+        if (!isActive)
         {
             weaponName = data.name;
             weaponIcon = data.icon;
@@ -38,6 +43,7 @@ public abstract class Weapon : MonoBehaviour
             SetFirstCoolDown(data.cooldown);
             SetFirstRange(data.range);
             SetFirstFierce(data.fierce);
+            isActive = true;
             return;
         }
 
@@ -70,7 +76,7 @@ public abstract class Weapon : MonoBehaviour
     {
         _damage += (int)value;
     }
-    
+
     protected virtual void UpgradeCoolDown(float value)
     {
         _attackCooldown *= value;
@@ -78,31 +84,28 @@ public abstract class Weapon : MonoBehaviour
 
     protected virtual void UpgradeRange(float value)
     {
-        
     }
-    
+
     protected virtual void UpgradeFierce(float value)
     {
-        
     }
-    
+
     protected virtual void SetFirstDamage(int value)
     {
         _damage = value;
     }
-    
+
     protected virtual void SetFirstCoolDown(float value)
     {
         _attackCooldown = value;
     }
-    
+
     protected virtual void SetFirstRange(float value)
     {
-        
     }
+
     protected virtual void SetFirstFierce(float value)
     {
-        
     }
 
     protected virtual void Attack(Vector2 direction)

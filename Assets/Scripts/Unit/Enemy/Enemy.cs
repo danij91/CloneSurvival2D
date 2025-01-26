@@ -5,14 +5,16 @@ using UnityEngine.Serialization;
 
 public abstract class Enemy : Unit
 {
+    public bool _isStop;
+    public BoxCollider2D _boxCollider;
+    
     [SerializeField] private float _moveSpeed;
     [SerializeField] private int _basicDamage;
     [SerializeField] private int _experience;
     [SerializeField] private Enums.MOVEMENT_TYPE _movementType;
-    public BoxCollider2D _boxCollider;
 
     private Transform _playerTransform;
-    private bool _isStop;
+    private int _score;
 
     protected virtual void Update()
     {
@@ -21,7 +23,7 @@ public abstract class Enemy : Unit
 
     protected virtual void Move()
     {
-        if (_isStop)
+        if (_isStop|| isDead)
         {
             return;
         }
@@ -57,10 +59,10 @@ public abstract class Enemy : Unit
     protected override void Die()
     {
         _boxCollider.enabled = false;
-        StopMovement();
         effectController.OnCompleteDeathEffect = () =>
         {
             ExperienceManager.Instance.TakeExperience(_experience);
+            ExperienceManager.Instance.TakeScore(_score);
             Restore();
         };
 
@@ -92,6 +94,7 @@ public abstract class Enemy : Unit
             _basicDamage = enemySpec.damage;
             _movementType = enemySpec.movementType;
             _moveSpeed = enemySpec.speed;
+            _score = enemySpec.score;
         }
 
         _playerTransform = GameManager.Instance.playerController.transform;

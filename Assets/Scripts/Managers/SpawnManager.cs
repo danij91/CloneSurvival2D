@@ -11,6 +11,7 @@ public class SpawnManager : MonoBehaviour
 
     private List<PatternState> activePatterns = new();
     private Transform _playerTransform;
+    private float _currentTime;
 
     private class PatternState
     {
@@ -38,24 +39,24 @@ public class SpawnManager : MonoBehaviour
         }
     }
 
-    private void Update()
+    private void FixedUpdate()
     {
-        float currentTime = Time.time;
+        _currentTime += Time.deltaTime;
 
         foreach (var state in activePatterns)
         {
-            if (!state.isActive && currentTime >= state.pattern.startTime)
+            if (!state.isActive && _currentTime >= state.pattern.startTime)
             {
                 state.isActive = true;
             }
 
-            if (state.isActive && currentTime >= state.nextSpawnTime)
+            if (state.isActive && _currentTime >= state.nextSpawnTime)
             {
                 Spawn(state.pattern);
                 state.nextSpawnTime += state.pattern.interval;
             }
 
-            if (state.isActive && currentTime >= state.endTime)
+            if (state.isActive && _currentTime >= state.endTime)
             {
                 state.isActive = false;
             }

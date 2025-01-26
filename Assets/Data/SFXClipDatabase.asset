@@ -12,6 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3da08e2acdc2ada4baa587ddfd60e372, type: 3}
   m_Name: SFXClipDatabase
   m_EditorClassIdentifier: 
+  sfxVolume: 0.054
+  bgmVolume: 0.059
   vfxClips:
   - type: 0
     clip: {fileID: 8300000, guid: d7550df87e06fba479f77c93f02e5a58, type: 3}
@@ -20,9 +22,11 @@ MonoBehaviour:
   - type: 3
     clip: {fileID: 8300000, guid: d5cf78dd74f78cc4d988480d28ce024a, type: 3}
   - type: 4
-    clip: {fileID: 8300000, guid: bef376e597e8c4b478cc472bb1fa1ba3, type: 3}
+    clip: {fileID: 8300000, guid: 08f8a5b847535474090f803a96e033e4, type: 3}
   - type: 2
     clip: {fileID: 8300000, guid: 2c97237da44cdbf489e7fd63768103d3, type: 3}
   bgmClips:
-  - type: 0
+  - type: 1
     clip: {fileID: 8300000, guid: 00afaed71817c304abcfea9df5e9ec07, type: 3}
+  - type: 0
+    clip: {fileID: 8300000, guid: 227d24cd2bc5cfd4c968649333677a57, type: 3}

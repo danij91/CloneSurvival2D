@@ -4,11 +4,11 @@ public class ProgressBar2D : MonoBehaviour
 {
     public Transform hpBarTransform;
     public Color fillColor = Color.red;
-    public SpriteRenderer renderer;
+    public SpriteRenderer spriteRenderer;
 
     private void Start()
     {
-        renderer.color = fillColor;
+        spriteRenderer.color = fillColor;
     }
     public void UpdateHp(float currentHp, float maxHp)
     {

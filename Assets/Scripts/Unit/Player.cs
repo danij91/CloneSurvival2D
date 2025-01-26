@@ -12,7 +12,8 @@ public class Player : Unit
 
     protected override void Die()
     {
-        _playerController.enabled = false;
+        GameManager.Instance.TogglePause();
+        UIManager.Instance.ShowPopup(POPUP_TYPE.POPUP_DEAD);
     }
 
     private void Start()
@@ -20,11 +21,18 @@ public class Player : Unit
         base.OnUse();
         _weapons = new();
 
-        _playerController = GameManager.Instance.playerController;
+        _playerController = GetComponent<PlayerController>();
     }
 
-    public void SetWeaponSprite()
+    public void Reset()
     {
+        ExperienceManager.Instance.Reset();
+        OnUse();
+        weaponSlot.sprite = null;
+        foreach (var item in _weapons)
+        {
+            item.Value.isActive = false;
+        }
     }
 
     public void UpgradeWeapon(WeaponDatabase.WeaponData data, int index)
@@ -38,15 +46,15 @@ public class Player : Unit
             currentWeapon.SetRenderer(weaponSlot);
             _weapons.Add(data.type, currentWeapon);
         }
-        
-        _weapons[data.type].Upgrade(data, index, isFirst);
+
+        _weapons[data.type].Upgrade(data, index);
     }
 
     public bool HasWeapon(WEAPON_TYPE type)
     {
-        return _weapons.ContainsKey(type);
+        return _weapons.ContainsKey(type) && _weapons[type].isActive;
     }
-    
+
     private void OnDrawGizmos()
     {
         Gizmos.color = Color.blue;

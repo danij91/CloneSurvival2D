@@ -48,6 +48,9 @@
   <ItemGroup>
     <Compile Include="Assets\SPUM\Basic_Resources\Package\Script\SPUM_PresetData.cs" />
     <Compile Include="Assets\SPUM\Script\SoonsoonData.cs" />
+    <Compile Include="Assets\Scripts\UI\DeadPopup.cs" />
+    <Compile Include="Assets\Scripts\UI\LoadingUI.cs" />
+    <Compile Include="Assets\Scripts\UI\PausePopup.cs" />
     <Compile Include="Assets\SPUM\Script\Plugin\Moments Recorder\Scripts\MinAttribute.cs" />
     <Compile Include="Assets\Scripts\Armory\Weapons\Ranged\Bow.cs" />
     <Compile Include="Assets\Layer Lab\Scripts\PanelControl.cs" />
@@ -67,7 +70,9 @@
     <Compile Include="Assets\SPUM\Script\SPUM_AnimationManager.cs" />
     <Compile Include="Assets\SPUM\Script\Etc\ColorSelect.cs" />
     <Compile Include="Assets\Scripts\Armory\Projectiles\MagicBall.cs" />
+    <Compile Include="Assets\Scripts\UI\TitleUI.cs" />
     <Compile Include="Assets\SPUM\Sample\Script\PlayerObj.cs" />
+    <Compile Include="Assets\Scripts\UI\SettingPopup.cs" />
     <Compile Include="Assets\Scripts\Unit\EnemyEffect\EffectController.cs" />
     <Compile Include="Assets\SPUM\Script\Data\SpumAnimationClip.cs" />
     <Compile Include="Assets\SPUM\SoonsoonData\SoonsoonData.cs" />
@@ -81,6 +86,7 @@
     <Compile Include="Assets\Scripts\Armory\Weapons\Ranged\RangedWeapon.cs" />
     <Compile Include="Assets\Scripts\Armory\Weapons\Ranged\Wand.cs" />
     <Compile Include="Assets\SPUM\Script\SPUM_EyeSet.cs" />
+    <Compile Include="Assets\Scripts\UI\InGameUI.cs" />
     <Compile Include="Assets\SPUM\Script\Plugin\Moments Recorder\Scripts\Recorder.cs" />
     <Compile Include="Assets\Scripts\Unit\EnemyEffect\IAnimationCompleteReciever.cs" />
     <Compile Include="Assets\Scripts\Util\VfxUnit.cs" />
@@ -105,9 +111,11 @@
     <Compile Include="Assets\Scripts\Armory\Projectiles\Projectile.cs" />
     <Compile Include="Assets\SPUM\Script\SPUM_Button.cs" />
     <Compile Include="Assets\Scripts\Util\Singletone.cs" />
+    <Compile Include="Assets\Scripts\Util\Config.cs" />
     <Compile Include="Assets\Scripts\Managers\FXManager.cs" />
     <Compile Include="Assets\Scripts\ScriptableObjects\EnemySpawnDatabase.cs" />
     <Compile Include="Assets\SPUM\Script\Plugin\Moments Recorder\Scripts\Worker.cs" />
+    <Compile Include="Assets\Scripts\Managers\SceneManager.cs" />
     <Compile Include="Assets\SPUM\Script\Data\SpumTextureData.cs" />
     <Compile Include="Assets\Scripts\Unit\Unit.cs" />
     <Compile Include="Assets\Scripts\Unit\EnemyEffect\AnimationCompleteReciever.cs" />
@@ -122,6 +130,7 @@
     <Compile Include="Assets\Scripts\Armory\Weapons\Melee\Sword.cs" />
     <Compile Include="Assets\SPUM\Script\SPUM_AnimationStatePanel.cs" />
     <Compile Include="Assets\Scripts\Armory\Weapons\Weapon.cs" />
+    <Compile Include="Assets\Scripts\UI\Popup.cs" />
     <Compile Include="Assets\Scripts\Unit\Enemy\Enemy.cs" />
     <Compile Include="Assets\SPUM\Script\Data\SPUM_MatchingList.cs" />
     <Compile Include="Assets\SPUM\Script\Plugin\Moments Recorder\Scripts\Gif\GifEncoder.cs" />
@@ -135,6 +144,7 @@
     <Compile Include="Assets\SPUM\Script\SPUM_PreviewMatchingList.cs" />
     <Compile Include="Assets\Scripts\Armory\Projectiles\Arrow.cs" />
     <Compile Include="Assets\Scripts\Unit\Player.cs" />
+    <Compile Include="Assets\Scripts\Util\InGameScene.cs" />
     <Compile Include="Assets\SPUM\Script\SPUM_AnimationControllerPanel.cs" />
     <Compile Include="Assets\Scripts\CameraController.cs" />
     <None Include="Assets\Layer Lab\GUI Pro-SimpleCasual\ResourcesData\Fonts\MuseoModerno - OFL.txt" />
