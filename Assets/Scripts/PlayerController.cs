@@ -9,7 +9,6 @@ public class PlayerController : MonoBehaviour
     public Animator animator;
     public Transform characterTransform;
 
-
     private Rigidbody2D _rigidbody;
     private Vector2 _movement;
     private Vector2 _direction = Vector2.left;

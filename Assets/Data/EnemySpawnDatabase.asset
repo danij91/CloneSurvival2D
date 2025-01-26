@@ -16,7 +16,6 @@ MonoBehaviour:
   SpawnPatterns:
   - type: 1
     centerType: 1
-    interval: 3
     radius: 3
     distance: 0
     enemySpec:
@@ -24,13 +23,14 @@ MonoBehaviour:
       health: 30
       damage: 10
       speed: 3
+      score: 10
       movementType: 0
     count: 1
     startTime: 3
     duration: 3000
+    interval: 3
   - type: 1
     centerType: 2
-    interval: 10
     radius: 3
     distance: 15
     enemySpec:
@@ -38,13 +38,14 @@ MonoBehaviour:
       health: 50
       damage: 15
       speed: 4
+      score: 20
       movementType: 0
     count: 3
     startTime: 30
     duration: 3000
+    interval: 10
   - type: 2
     centerType: 1
-    interval: 15
     radius: 7
     distance: 10
     enemySpec:
@@ -52,7 +53,9 @@ MonoBehaviour:
       health: 70
       damage: 15
       speed: 4
+      score: 30
       movementType: 0
     count: 15
     startTime: 60
     duration: 3000
+    interval: 15

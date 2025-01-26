@@ -659,10 +659,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fc92957b526c9f04eb592c358be3c21c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  ForceWeaponType: 0
-  wt: 3
-  ForceWeaponOption: 0
-  ot: 2
   weaponDatabase: {fileID: 11400000, guid: 3ea21133a2fddd44c81e96a69e3308f4, type: 2}
 --- !u!4 &237048743
 Transform:
@@ -769,6 +765,10 @@ PrefabInstance:
     - target: {fileID: 1466239572596834821, guid: c5b13a213cbfcae43abc0e1382c703ad, type: 3}
       propertyPath: m_Name
       value: Player
+      objectReference: {fileID: 0}
+    - target: {fileID: 3085479171515758828, guid: c5b13a213cbfcae43abc0e1382c703ad, type: 3}
+      propertyPath: _range
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 4534505947434125475, guid: c5b13a213cbfcae43abc0e1382c703ad, type: 3}
       propertyPath: m_LocalPosition.x

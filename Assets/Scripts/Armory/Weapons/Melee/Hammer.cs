@@ -4,7 +4,7 @@ using UnityEngine;
 public class Hammer : MeleeWeapon
 {
     private Vector3 _direction;
-    
+
     protected override void Attack(Vector2 direction)
     {
         base.Attack(direction);
@@ -12,8 +12,9 @@ public class Hammer : MeleeWeapon
 
         direction *= _range;
         _direction = direction;
-        Collider2D[] hitColliders = Physics2D.OverlapCircleAll(_playerTransform.position + (Vector3)direction, _range);
-
+        Vector3 stampPosition = _playerTransform.position + (Vector3)direction;
+        Collider2D[] hitColliders = Physics2D.OverlapCircleAll(stampPosition, _range);
+        FXManager.Instance.PlayVfx(stampPosition, VFX_TYPE.STAMP, _range);
         foreach (Collider2D collider in hitColliders)
         {
             if (collider.CompareTag("Enemy"))
@@ -28,10 +29,10 @@ public class Hammer : MeleeWeapon
             FXManager.Instance.PlaySfx(SFX_TYPE.HIT);
         }
     }
-    
+
     private void OnDrawGizmos()
     {
         Gizmos.color = Color.blue;
-        Gizmos.DrawWireSphere(transform.position+ _direction, _range);
+        Gizmos.DrawWireSphere(transform.position + _direction, _range);
     }
 }

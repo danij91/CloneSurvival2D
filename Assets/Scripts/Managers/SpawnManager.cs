@@ -5,7 +5,7 @@ using UnityEngine;
 using Random = UnityEngine.Random;
 using EnemySpawnPattern = EnemySpawnDatabase.EnemySpawnPattern;
 
-public class SpawnManager : MonoBehaviour
+public class SpawnManager : Singleton<SpawnManager>
 {
     public EnemySpawnDatabase spawnDatabase;
 
@@ -23,8 +23,6 @@ public class SpawnManager : MonoBehaviour
 
     private void Start()
     {
-        _playerTransform = GameManager.Instance.playerController.transform;
-
         foreach (var pattern in spawnDatabase.SpawnPatterns)
         {
             var state = new PatternState
@@ -39,6 +37,19 @@ public class SpawnManager : MonoBehaviour
         }
     }
 
+    public override void Initialize()
+    {
+        base.Initialize();
+        Reset();
+        _playerTransform = GameManager.Instance.playerController.transform;
+    }
+
+    private void Reset()
+    {
+        _currentTime = 0f;
+        PoolingManager.Instance.RestoreAllByType(POOL_TYPE.Enemy);
+    }
+    
     private void FixedUpdate()
     {
         _currentTime += Time.deltaTime;

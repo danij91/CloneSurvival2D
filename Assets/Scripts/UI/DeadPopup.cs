@@ -17,6 +17,7 @@ public class DeadPopup : Popup
     {
         ExperienceManager.Instance.Reset();
         GameManager.Instance.playerController.GetComponent<Player>().Reset();
+        SpawnManager.Instance.Reset();
         Restore();
     }
 

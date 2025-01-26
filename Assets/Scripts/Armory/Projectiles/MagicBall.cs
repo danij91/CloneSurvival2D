@@ -3,7 +3,7 @@ using UnityEngine;
 
 public class MagicBall : Projectile
 {
-    float _range;
+    private float _range;
 
     public void SetWeaponRange(float range)
     {
