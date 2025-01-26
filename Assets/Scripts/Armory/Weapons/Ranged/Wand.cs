@@ -8,7 +8,8 @@ public class Wand : RangedWeapon
     {
         base.Attack(direction);
         FXManager.Instance.PlaySfx(Enums.SFX_TYPE.FIRE);
-        var magicBall = PoolingManager.Instance.Create<MagicBall>(POOL_TYPE.Projectile, _playerTransform.position,"Magicball");
+        var magicBall =
+            PoolingManager.Instance.Create<MagicBall>(POOL_TYPE.Projectile, _playerTransform.position, "Magicball");
         magicBall.SetWeaponDamage(_damage);
         magicBall.SetWeaponRange(_range);
         magicBall.SetDirection(direction);

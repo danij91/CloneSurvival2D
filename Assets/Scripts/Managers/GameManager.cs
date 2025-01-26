@@ -6,7 +6,7 @@ public class GameManager : Singleton<GameManager>
 {
     public PlayerController playerController;
 
-    private bool isPaused = false;
+    private bool isPaused;
 
     public override void Initialize()
     {

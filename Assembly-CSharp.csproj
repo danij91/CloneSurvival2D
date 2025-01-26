@@ -110,8 +110,9 @@
     <Compile Include="Assets\SPUM\Script\SPUM_PackageElement.cs" />
     <Compile Include="Assets\Scripts\Armory\Projectiles\Projectile.cs" />
     <Compile Include="Assets\SPUM\Script\SPUM_Button.cs" />
+    <Compile Include="Assets\Scripts\Util\FixedVfxUnit.cs" />
     <Compile Include="Assets\Scripts\Util\Singletone.cs" />
-    <Compile Include="Assets\Scripts\Util\Config.cs" />
+    <Compile Include="Assets\MiniGames\Trail\Trail.cs" />
     <Compile Include="Assets\Scripts\Managers\FXManager.cs" />
     <Compile Include="Assets\Scripts\ScriptableObjects\EnemySpawnDatabase.cs" />
     <Compile Include="Assets\SPUM\Script\Plugin\Moments Recorder\Scripts\Worker.cs" />

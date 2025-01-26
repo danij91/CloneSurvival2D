@@ -5,8 +5,8 @@ using UnityEngine;
 public abstract class Weapon : MonoBehaviour
 {
     public bool isActive;
-    private SpriteRenderer _weaponRender;
 
+    private SpriteRenderer _weaponRender;
     protected string weaponName;
     protected int _damage;
     protected float _attackCooldown;
@@ -15,23 +15,6 @@ public abstract class Weapon : MonoBehaviour
     protected float[] upgradeOptionSpecs;
     protected float _cooldownTimer;
     protected Transform _playerTransform;
-
-    protected virtual void Update()
-    {
-        if (!isActive)
-        {
-            return;
-        }
-        _cooldownTimer -= Time.deltaTime;
-
-        if (!IsAttackReady())
-        {
-            return;
-        }
-
-        Attack(GameManager.Instance.playerController.GetDirection());
-        _cooldownTimer = _attackCooldown;
-    }
 
     public virtual void Upgrade(WeaponDatabase.WeaponData data, int index)
     {
@@ -70,6 +53,28 @@ public abstract class Weapon : MonoBehaviour
     public void SetRenderer(SpriteRenderer render)
     {
         _weaponRender = render;
+    }
+    
+    protected virtual void Update()
+    {
+        if (!isActive)
+        {
+            return;
+        }
+        _cooldownTimer -= Time.deltaTime;
+
+        if (!IsAttackReady())
+        {
+            return;
+        }
+
+        Attack(GameManager.Instance.playerController.GetDirection());
+        _cooldownTimer = _attackCooldown;
+    }
+    
+    private bool IsAttackReady()
+    {
+        return _cooldownTimer < 0;
     }
 
     protected virtual void UpgradeDamage(float value)
@@ -112,11 +117,6 @@ public abstract class Weapon : MonoBehaviour
     {
         _weaponRender.sprite = weaponIcon;
         _playerTransform = GameManager.Instance.playerController.transform;
-    }
-
-    private bool IsAttackReady()
-    {
-        return _cooldownTimer < 0;
     }
 
     protected virtual void Initialize()

@@ -8,5 +8,6 @@ public class InGameScene : MonoBehaviour
         FXManager.Instance.Initialize();
         UIManager.Instance.Initialize();
         ExperienceManager.Instance.Initialize();
+        SpawnManager.Instance.Initialize();
     }
 }

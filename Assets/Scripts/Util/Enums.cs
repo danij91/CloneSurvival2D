@@ -12,7 +12,9 @@
     public enum VFX_TYPE
     {
         HIT,
-        EXPLOSION
+        EXPLOSION,
+        SWING,
+        STAMP
     }
     
     public enum BGM_TYPE

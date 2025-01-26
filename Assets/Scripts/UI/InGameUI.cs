@@ -64,6 +64,7 @@ public class InGameUI : MonoBehaviour
 
     private void OnClickSettings()
     {
+        GameManager.Instance.TogglePause();
         UIManager.Instance.ShowPopup(POPUP_TYPE.POPUP_SETTING);
     }
 }

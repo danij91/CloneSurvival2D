@@ -8,14 +8,8 @@ using Random = UnityEngine.Random;
 
 public class ExperienceManager : Singleton<ExperienceManager>
 {
-    //레벨업 테스트용 코드
-#if UNITY_EDITOR
-    public bool ForceWeaponType;
-    public WEAPON_TYPE wt;
-    public bool ForceWeaponOption = false;
-    public int ot;
-#endif
     public WeaponDatabase weaponDatabase;
+    
     private int _currentScore;
     private InGameUI _inGameUI;
     private int _currentExperience;
@@ -24,9 +18,7 @@ public class ExperienceManager : Singleton<ExperienceManager>
     private Player _player;
     private List<WeaponDatabase.WeaponData> _currentSelectedWeaponData = new();
     private List<int> _currentSelectedOptionIndex = new();
-
     private int _levelUpCount = 0;
-
     private const int MAX_EXPERIENCE = 10;
     private const int OPTION_COUNT = 3;
 
@@ -122,18 +114,7 @@ public class ExperienceManager : Singleton<ExperienceManager>
         int weaponIndex = 0;
         for (int i = 0; i < OPTION_COUNT; i++)
         {
-#if UNITY_EDITOR
-            if (ForceWeaponType)
-            {
-                weaponIndex = (int)wt;
-            }
-            else
-            {
-                weaponIndex = Random.Range(0, weaponCount);
-            }
-#else
             weaponIndex = Random.Range(0, weaponCount);
-#endif
             selectedWeapon = weaponDatabase.weaponDatas[weaponIndex];
             _currentSelectedWeaponData[i] = selectedWeapon;
             _inGameUI.SetCardIcon(i, selectedWeapon.icon);
@@ -144,18 +125,7 @@ public class ExperienceManager : Singleton<ExperienceManager>
             }
             else
             {
-#if UNITY_EDITOR
-                if (ForceWeaponType)
-                {
-                    _currentSelectedOptionIndex[i] = ot;
-                }
-                else
-                {
-                    _currentSelectedOptionIndex[i] = Random.Range(0, selectedWeapon.upgradeOptionDatas.Count);
-                }
-#else
-                // _currentSelectedOptionIndex[i] = Random.Range(0, selectedWeapon.upgradeOptionDatas.Count);
-#endif
+                _currentSelectedOptionIndex[i] = Random.Range(0, selectedWeapon.upgradeOptionDatas.Count);
                 _inGameUI.SetCardOptionName(i, selectedWeapon.upgradeOptionDatas[_currentSelectedOptionIndex[i]].name);
             }
         }

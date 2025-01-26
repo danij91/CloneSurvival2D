@@ -32,19 +32,4 @@ public class UIManager : Singleton<UIManager>
         
         PoolingManager.Instance.CreateUI<Popup>(POOL_TYPE.Popup, _screenCenter, _popupFilePaths[type], _canvas.transform, null);
     }
-
-    public Canvas GetCanvas()
-    {
-        if (!_canvas)
-        {
-            _canvas = FindFirstObjectByType<Canvas>();
-        }
-
-        return _canvas;
-    }
-
-    public Vector2 GetScreenCenter()
-    {
-        return _screenCenter;
-    }
 }

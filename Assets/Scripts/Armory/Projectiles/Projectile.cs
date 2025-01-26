@@ -3,13 +3,11 @@ using UnityEngine;
 
 public class Projectile : PoolingObject
 {
+    private Vector3 _direction;
     protected float _speed;
     protected float _lifeTime;
-
     protected int _weaponDamage;
-    private Vector3 _direction;
-    protected bool _hasCollided = false;
-
+    protected bool _hasCollided;
     protected float _currentTime;
 
     public void SetDirection(Vector2 direction)
@@ -31,24 +29,25 @@ public class Projectile : PoolingObject
 
     private void Update()
     {
-        _currentTime+= Time.deltaTime;
+        _currentTime += Time.deltaTime;
         if (_currentTime >= _lifeTime)
         {
             Restore();
         }
+
         transform.Translate(_direction * _speed * Time.deltaTime, Space.World);
     }
-
-    internal override void OnInitialize(params object[] parameters)
-    {
-        _currentTime = 0;
-    }
-
+    
     protected override void OnUse()
     {
     }
 
     protected override void OnRestore()
     {
+    }
+
+    internal override void OnInitialize(params object[] parameters)
+    {
+        _currentTime = 0;
     }
 }
