@@ -6,11 +6,12 @@ using UnityEngine.Serialization;
 public abstract class Unit : PoolingObject
 {
     public ProgressBar2D hpBar;
-    private int _currentHealth;
     public int maxHealth;
     public GameObject characterModel;
     public EffectController effectController;
 
+    protected bool isDead = false;
+    private int _currentHealth;
     private const int BLINK_COUNT = 2;
     private const float BLINK_INTERVAL = 0.2f;
     
@@ -23,6 +24,7 @@ public abstract class Unit : PoolingObject
 
         if (_currentHealth == 0)
         {
+            isDead = true;
             Die();
         }
         else
@@ -39,6 +41,7 @@ public abstract class Unit : PoolingObject
 
     protected override void OnUse()
     {
+        isDead = false;
         _currentHealth = maxHealth;
         hpBar.UpdateHp(_currentHealth, maxHealth);
     }

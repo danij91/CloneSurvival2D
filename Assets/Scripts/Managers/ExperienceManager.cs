@@ -15,38 +15,47 @@ public class ExperienceManager : Singleton<ExperienceManager>
     public bool ForceWeaponOption = false;
     public int ot;
 #endif
-    
-    public SelectionCard selectionCardPrefab;
-    public RectTransform selectionPanel;
-    public Slider experienceBar;
     public WeaponDatabase weaponDatabase;
-
+    private int _currentScore;
+    private InGameUI _inGameUI;
     private int _currentExperience;
-    private int _currentMaxExperience = 10;
-    private int _currentLevel = 1;
+    private int _currentMaxExperience;
+    private int _currentLevel;
     private Player _player;
     private List<WeaponDatabase.WeaponData> _currentSelectedWeaponData = new();
     private List<int> _currentSelectedOptionIndex = new();
-    private List<SelectionCard> _selectionCards = new();
+
     private int _levelUpCount = 0;
 
+    private const int MAX_EXPERIENCE = 10;
     private const int OPTION_COUNT = 3;
 
-    private void Start()
+    public override void Initialize()
     {
         _player = GameManager.Instance.playerController.GetComponent<Player>();
         GameManager.Instance.PauseGame();
 
+        _inGameUI = FindFirstObjectByType<InGameUI>();
+
         for (int i = 0; i < OPTION_COUNT; i++)
         {
-            SelectionCard newCard = Instantiate(selectionCardPrefab, selectionPanel);
-            _selectionCards.Add(newCard);
-            int index = i;
-            _selectionCards[i].SetOnBtnClick(() => OnSelectCard(index));
             _currentSelectedWeaponData.Add(null);
             _currentSelectedOptionIndex.Add(0);
         }
 
+        _inGameUI.CreateSelectionCard(OPTION_COUNT);
+
+        Reset();
+        base.Initialize();
+    }
+
+    public override void Reset()
+    {
+        _currentScore = 0;
+        _currentExperience = 0;
+        _currentMaxExperience = MAX_EXPERIENCE;
+        _currentLevel = 1;
+        _levelUpCount = 0;
         ShowUpgradeSelectionUI(true);
     }
 
@@ -59,10 +68,20 @@ public class ExperienceManager : Singleton<ExperienceManager>
             LevelUp();
         }
 
-        experienceBar.value = (float)_currentExperience / _currentMaxExperience;
+        _inGameUI.SetExperience((float)_currentExperience / _currentMaxExperience);
     }
 
-    private void OnSelectCard(int cardIndex)
+    public void TakeScore(int score)
+    {
+        _currentScore += score;
+    }
+
+    public int GetScore()
+    {
+        return _currentScore;
+    }
+
+    public void OnSelectCard(int cardIndex)
     {
         _player.UpgradeWeapon(_currentSelectedWeaponData[cardIndex], _currentSelectedOptionIndex[cardIndex]);
         _levelUpCount--;
@@ -77,7 +96,6 @@ public class ExperienceManager : Singleton<ExperienceManager>
             GameManager.Instance.ResumeGame();
         }
     }
-
 
     private void LevelUp()
     {
@@ -118,11 +136,11 @@ public class ExperienceManager : Singleton<ExperienceManager>
 #endif
             selectedWeapon = weaponDatabase.weaponDatas[weaponIndex];
             _currentSelectedWeaponData[i] = selectedWeapon;
-            _selectionCards[i].SetIcon(selectedWeapon.icon);
+            _inGameUI.SetCardIcon(i, selectedWeapon.icon);
 
             if (isFirst || !_player.HasWeapon(selectedWeapon.type))
             {
-                _selectionCards[i].SetOptionName(selectedWeapon.name);
+                _inGameUI.SetCardOptionName(i, selectedWeapon.name);
             }
             else
             {
@@ -138,16 +156,15 @@ public class ExperienceManager : Singleton<ExperienceManager>
 #else
                 // _currentSelectedOptionIndex[i] = Random.Range(0, selectedWeapon.upgradeOptionDatas.Count);
 #endif
-                _selectionCards[i]
-                    .SetOptionName(selectedWeapon.upgradeOptionDatas[_currentSelectedOptionIndex[i]].name);
+                _inGameUI.SetCardOptionName(i, selectedWeapon.upgradeOptionDatas[_currentSelectedOptionIndex[i]].name);
             }
         }
 
-        selectionPanel.gameObject.SetActive(true);
+        _inGameUI.ShowSelectionPanel();
     }
 
     private void HideUpgradeSelectionUI()
     {
-        selectionPanel.gameObject.SetActive(false);
+        _inGameUI.HideSelectionPanel();
     }
 }

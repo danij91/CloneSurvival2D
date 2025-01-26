@@ -17,7 +17,8 @@
     
     public enum BGM_TYPE
     {
-        PLAY,
+        TITLE,
+        INGAME,
     }
     
     public enum SPAWN_TYPE
@@ -61,5 +62,12 @@
         RANGE,
         COOLDOWN,
         FIERCE,
+    }
+
+    public enum POPUP_TYPE
+    {
+        POPUP_SETTING,
+        POPUP_PAUSE,
+        POPUP_DEAD
     }
 }

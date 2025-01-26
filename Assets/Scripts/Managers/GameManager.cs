@@ -4,27 +4,14 @@ using UnityEngine.Serialization;
 
 public class GameManager : Singleton<GameManager>
 {
-    public static GameManager Instance { get; set; }
     public PlayerController playerController;
 
     private bool isPaused = false;
 
-    private void Awake()
+    public override void Initialize()
     {
-        if (Instance == null)
-        {
-            Instance = this;
-            DontDestroyOnLoad(gameObject);
-        }
-        else
-        {
-            Destroy(gameObject);
-        }
-    }
-
-    private void Start()
-    {
-        FXManager.Instance.PlayBgm(Enums.BGM_TYPE.PLAY);
+        playerController = FindFirstObjectByType<PlayerController>();
+        base.Initialize();
     }
 
     public void TogglePause()
@@ -49,5 +36,10 @@ public class GameManager : Singleton<GameManager>
     {
         Time.timeScale = 1f;
         isPaused = false;
+    }
+
+    public bool IsPaused()
+    {
+        return isPaused;
     }
 }

@@ -1,22 +1,50 @@
 ﻿using System;
+using System.Collections.Generic;
+using Enums;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class UIManager : MonoBehaviour
+public class UIManager : Singleton<UIManager>
 {
-    public Button btn_pause;
+    private Canvas _canvas;
+    private Dictionary<POPUP_TYPE, string> _popupFilePaths = new();
+    private Vector2 _screenCenter;
     
-    public GameObject _pausePanel;
-
-
-    private void Start()
+    public override void Initialize()
     {
-        btn_pause.onClick.AddListener(OnClickPause);
+        if (!_isInitialized)
+        {
+            _popupFilePaths.Add(POPUP_TYPE.POPUP_SETTING, "Popup_Setting");
+            _popupFilePaths.Add(POPUP_TYPE.POPUP_PAUSE, "Popup_Pause");
+            _popupFilePaths.Add(POPUP_TYPE.POPUP_DEAD, "Popup_Dead");
+            _screenCenter = new Vector2(Screen.width / 2f, Screen.height / 2f);
+        }
+        
+        base.Initialize();
     }
 
-    private void OnClickPause()
+    public void ShowPopup(POPUP_TYPE type)
     {
-        GameManager.Instance.TogglePause();
-        _pausePanel.SetActive(!_pausePanel.activeSelf);
+        if (!_canvas)
+        {
+            _canvas = FindFirstObjectByType<Canvas>();
+        }
+        
+        PoolingManager.Instance.CreateUI<Popup>(POOL_TYPE.Popup, _screenCenter, _popupFilePaths[type], _canvas.transform, null);
+    }
+
+    public Canvas GetCanvas()
+    {
+        if (!_canvas)
+        {
+            _canvas = FindFirstObjectByType<Canvas>();
+        }
+
+        return _canvas;
+    }
+
+    public Vector2 GetScreenCenter()
+    {
+        return _screenCenter;
     }
 }

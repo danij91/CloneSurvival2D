@@ -15,9 +15,10 @@ public class Bow : RangedWeapon
         base.Attack(direction);
         FXManager.Instance.PlaySfx(Enums.SFX_TYPE.SHOOT);
         var arrow = PoolingManager.Instance.Create<Arrow>(POOL_TYPE.Projectile, _playerTransform.position, "Arrow",
-            null, _fierce);
+            null);
         arrow.SetWeaponDamage(_damage);
         arrow.SetDirection(direction);
+        arrow.ResetFierceCount(_fierce);
     }
 
     protected override void SetFirstFierce(float value)

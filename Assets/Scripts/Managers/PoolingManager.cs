@@ -8,7 +8,8 @@ public enum POOL_TYPE
     Sfx,
     Vfx,
     Enemy,
-    Projectile
+    Projectile,
+    Popup
 }
 
 public class PoolingManager : Singleton<PoolingManager>
@@ -70,7 +71,6 @@ public class PoolingManager : Singleton<PoolingManager>
         return newObj;
     }
 
-
     public T Create<T>(POOL_TYPE type, string resourceName, Transform parent = null, params object[] parameters)
         where T : PoolingObject
     {
@@ -126,6 +126,37 @@ public class PoolingManager : Singleton<PoolingManager>
         newObj.OnInitialize(parameters);
         newObj.Use();
         newObj.transform.position = position;
+
+        return newObj;
+    }
+    
+    public T CreateUI<T>(POOL_TYPE type, Vector3 position, string resourceName, Transform parent = null,
+        params object[] parameters)
+        where T : PoolingObject
+    {
+        bool isContainsResources = _poolingList.ContainsKey(type);
+        if (isContainsResources)
+        {
+            var poolingObj = _poolingList[type].Find(x =>
+                x.gameObject.name.StartsWith(resourceName)
+                && x.PoolingState == POOLING_STATE.WAITING
+                && !x.isActiveAndEnabled) as T;
+
+            if (poolingObj != null)
+            {
+                poolingObj.OnInitialize(parameters);
+                poolingObj.Use();
+                poolingObj.GetComponent<RectTransform>().position = position;
+                return poolingObj;
+            }
+        }
+
+        var newObj = CreatePoolingObject<T>(type, resourceName);
+        if (parent != null) newObj.transform.SetParent(parent);
+
+        newObj.OnInitialize(parameters);
+        newObj.Use();
+        newObj.GetComponent<RectTransform>().position = position;
 
         return newObj;
     }

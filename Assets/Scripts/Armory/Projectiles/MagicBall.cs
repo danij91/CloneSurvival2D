@@ -42,5 +42,6 @@ public class MagicBall : Projectile
     {
         _speed = 3f;
         _lifeTime = 5f;
+        _currentTime = 0;
     }
 }

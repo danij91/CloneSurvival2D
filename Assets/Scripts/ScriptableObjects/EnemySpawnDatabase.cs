@@ -10,7 +10,6 @@ public class EnemySpawnDatabase : ScriptableObject
     {
         public Enums.SPAWN_TYPE type;
         public Enums.SPAWN_CENTER_TYPE centerType;
-        public float interval;
         public float radius;
         public float distance;
         public EnemySpec enemySpec;
@@ -18,6 +17,7 @@ public class EnemySpawnDatabase : ScriptableObject
 
         public float startTime;
         public float duration;
+        public float interval;
     }
 
     [Serializable]
@@ -27,6 +27,7 @@ public class EnemySpawnDatabase : ScriptableObject
         public int health;
         public int damage;
         public int speed;
+        public int score;
         public Enums.MOVEMENT_TYPE movementType;
     }
 

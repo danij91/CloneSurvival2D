@@ -2,22 +2,52 @@
 using System.Collections.Generic;
 using Enums;
 using UnityEngine;
-using UnityEngine.Serialization;
 
 public class FXManager : Singleton<FXManager>
 {
     public SFXClipDatabase sfxDatabase;
-
-    [Range(0f, 1f)] public float sfxVolume, bgmVolume;
-
     public AudioSource bgmAudioSource;
+
+    private float _sfxVolume;
+    private float _bgmVolume;
+
+    public float SfxVolume
+    {
+        get => _sfxVolume;
+        set
+        {
+            if (value < 0) throw new ArgumentOutOfRangeException(nameof(value));
+
+            foreach (var unit in sfxUnits)
+            {
+                if (unit != null)
+                    unit.UpdateVolume(value);
+            }
+
+            _sfxVolume = value;
+        }
+    }
+
+    public float BgmVolume
+    {
+        get => _bgmVolume;
+        set
+        {
+            if (value < 0) throw new ArgumentOutOfRangeException(nameof(value));
+
+            bgmAudioSource.volume = value;
+            _bgmVolume = value;
+        }
+    }
 
     private readonly List<SfxUnit> sfxUnits = new List<SfxUnit>();
     private Dictionary<VFX_TYPE, string> _vfxFileNames = new Dictionary<VFX_TYPE, string>();
 
     private void Start()
     {
-        bgmAudioSource.volume = bgmVolume;
+        _bgmVolume = sfxDatabase.bgmVolume;
+        _sfxVolume = sfxDatabase.sfxVolume;
+        bgmAudioSource.volume = _bgmVolume;
     }
 
     public void PlayVfx(Vector3 pos, VFX_TYPE type, float scale = 1f)
@@ -40,6 +70,11 @@ public class FXManager : Singleton<FXManager>
 
     public void PlayBgm(BGM_TYPE type)
     {
+        if (bgmAudioSource.clip == sfxDatabase.GetBgmClip(type))
+        {
+            return;
+        }
+
         bgmAudioSource.clip = sfxDatabase.GetBgmClip(type);
         bgmAudioSource.Play();
     }
@@ -49,7 +84,7 @@ public class FXManager : Singleton<FXManager>
         if (!sfxUnits.Contains(unit))
         {
             sfxUnits.Add(unit);
-            unit.UpdateVolume(sfxVolume);
+            unit.UpdateVolume(_sfxVolume);
         }
     }
 
@@ -58,16 +93,6 @@ public class FXManager : Singleton<FXManager>
         if (sfxUnits.Contains(unit))
         {
             sfxUnits.Remove(unit);
-        }
-    }
-
-    public void SetSfxVolume(float volume)
-    {
-        sfxVolume = volume;
-        foreach (var unit in sfxUnits)
-        {
-            if (unit != null)
-                unit.UpdateVolume(sfxVolume);
         }
     }
 }
